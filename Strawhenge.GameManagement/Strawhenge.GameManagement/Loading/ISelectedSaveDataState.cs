@@ -1,6 +1,6 @@
 ﻿namespace Strawhenge.GameManagement.Loading
 {
-    public interface ISaveDataState
+    public interface ISelectedSaveDataState
     {
         bool IsAwaitingSelectedSaveDataLoad { get; }
     }
