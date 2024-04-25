@@ -3,12 +3,12 @@
     public class CurrentSaveDataContainer<TSaveData>
         : ICurrentSaveDataSetter<TSaveData>, ICurrentSaveDataAccessor<TSaveData>
     {
-        readonly TSaveData _newGameData;
+        readonly TSaveData _defaultSaveData;
 
         public CurrentSaveDataContainer(IDefaultSaveDataFactory<TSaveData> defaultSaveDataFactory)
         {
-            _newGameData = defaultSaveDataFactory.Create();
-            CurrentSaveData = _newGameData;
+            _defaultSaveData = defaultSaveDataFactory.Create();
+            CurrentSaveData = _defaultSaveData;
         }
 
         public TSaveData CurrentSaveData { get; private set; }
@@ -18,9 +18,9 @@
             CurrentSaveData = saveData;
         }
 
-        public void SetNewGame()
+        public void SetDefault()
         {
-            CurrentSaveData = _newGameData;
+            CurrentSaveData = _defaultSaveData;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Strawhenge.GameManagement.Unity
         {
             if (_selectedSave == null)
             {
-                _currentSaveData.SetNewGame();
+                _currentSaveData.SetDefault();
             }
             else
             {
