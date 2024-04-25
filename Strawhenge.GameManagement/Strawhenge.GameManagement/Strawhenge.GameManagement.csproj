@@ -4,6 +4,10 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="functionalutilities" Version="1.1.32" />
+    </ItemGroup>
+
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="xcopy /Y &quot;$(TargetPath)&quot; &quot;$(SolutionDir)\..\Strawhenge.GameManagement.Unity\Assets\Package\Runtime&quot;"/>
     </Target>
