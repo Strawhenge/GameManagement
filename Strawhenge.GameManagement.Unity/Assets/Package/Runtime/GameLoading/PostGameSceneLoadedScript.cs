@@ -39,7 +39,9 @@ namespace Strawhenge.GameManagement.Unity
                 yield return null;
             }
 
-            SceneManager.UnloadSceneAsync(SceneNames.LoadingScreen);
+            var loadingScreen = SceneManager.GetSceneByName(SceneNames.LoadingScreen);
+            if (loadingScreen.isLoaded)
+                SceneManager.UnloadSceneAsync(SceneNames.LoadingScreen);
 
             Destroy(gameObject);
             Time.timeScale = 1;
