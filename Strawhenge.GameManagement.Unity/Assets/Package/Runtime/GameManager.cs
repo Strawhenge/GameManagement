@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Strawhenge.GameManagement.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ILogger = Strawhenge.Common.Logging.ILogger;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using Strawhenge.GameManagement.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ namespace Strawhenge.GameManagement.Unity
     {
         [SerializeField] GameLoadSegmentScript[] _segments;
 
-        public ISaveDataState SaveDataState { private get; set; }
+        public ISelectedSaveDataState SaveDataState { private get; set; }
 
         void Awake()
         {
