@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.GameManagement.Unity
+﻿namespace Strawhenge.GameManagement.Saving
 {
     public class SaveGameCommandFactory<TSaveData> : ISaveGameCommandFactory
     {

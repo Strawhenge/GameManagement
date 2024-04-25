@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Strawhenge.GameManagement.CurrentSaveData;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Loading
 {
     public class SaveDataController<TSaveData> : ISaveDataSelector, ISelectedSaveDataLoader, ISaveDataState
     {

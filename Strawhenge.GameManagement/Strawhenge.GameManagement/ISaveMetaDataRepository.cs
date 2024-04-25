@@ -1,7 +1,7 @@
-﻿using FunctionalUtilities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FunctionalUtilities;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement
 {
     public interface ISaveMetaDataRepository
     {

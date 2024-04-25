@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Saving
 {
     public class SaveGameCommand<TSaveData> : ISaveGameCommand
     {

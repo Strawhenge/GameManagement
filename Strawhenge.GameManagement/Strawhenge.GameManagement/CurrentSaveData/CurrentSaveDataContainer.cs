@@ -1,4 +1,4 @@
-﻿namespace Strawhenge.GameManagement.Unity
+﻿namespace Strawhenge.GameManagement.CurrentSaveData
 {
     public class CurrentSaveDataContainer<TSaveData>
         : ICurrentSaveDataSetter<TSaveData>, ICurrentSaveDataAccessor<TSaveData>
