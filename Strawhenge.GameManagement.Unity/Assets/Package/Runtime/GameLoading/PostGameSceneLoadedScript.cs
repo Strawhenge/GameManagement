@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class GameLoaderScript : MonoBehaviour
+    public class PostGameSceneLoadedScript : MonoBehaviour
     {
-        [SerializeField] GameLoadSegmentScript[] _segments;
+        [SerializeField] PostGameSceneLoadedSegmentScript[] _segments;
 
         public ISelectedSaveDataState SaveDataState { private get; set; }
 
@@ -32,9 +32,9 @@ namespace Strawhenge.GameManagement.Unity
             }
 
             foreach (var segment in _segments)
-                segment.BeginLoad();
+                segment.Run();
 
-            while (!_segments.All(x => x.IsLoaded))
+            while (!_segments.All(x => x.IsCompleted))
             {
                 yield return null;
             }
