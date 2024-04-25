@@ -1,0 +1,14 @@
+{
+    "name": "Strawhenge.GameManagement.Unity",
+    "rootNamespace": "Strawhenge.GameManagement.Unity",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
