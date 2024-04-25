@@ -19,6 +19,8 @@ namespace Strawhenge.GameManagement.Unity
 
         IEnumerator LoadMainScene()
         {
+            yield return new WaitForEndOfFrame();
+
             var loadGameScene = SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Additive);
             if (loadGameScene == null)
             {
@@ -35,6 +37,8 @@ namespace Strawhenge.GameManagement.Unity
 
         IEnumerator LoadProgress()
         {
+            yield return new WaitForEndOfFrame();
+
             var task = SelectedSaveDataLoader.LoadProgress();
             yield return new WaitUntil(() => task.IsCompleted);
 
