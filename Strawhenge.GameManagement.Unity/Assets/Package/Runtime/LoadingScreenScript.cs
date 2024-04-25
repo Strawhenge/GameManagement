@@ -19,9 +19,14 @@ namespace Strawhenge.GameManagement.Unity
 
         IEnumerator LoadMainScene()
         {
-            yield return new WaitForEndOfFrame();
+            var loadGameScene = SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Additive);
+            if (loadGameScene == null)
+            {
+                Debug.LogError("Could not load game scene.", this);
+                yield break;
+            }
 
-            SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Additive).completed += _ =>
+            loadGameScene.completed += _ =>
             {
                 SceneManager.SetActiveScene(
                     SceneManager.GetSceneByName(SceneNames.Game));
