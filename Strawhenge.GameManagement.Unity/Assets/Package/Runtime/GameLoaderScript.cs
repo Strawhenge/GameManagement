@@ -12,6 +12,8 @@ namespace Strawhenge.GameManagement.Unity
 
         public ISelectedSaveDataState SaveDataState { private get; set; }
 
+        public ISceneNames SceneNames { private get; set; }
+
         void Awake()
         {
             Time.timeScale = 0;
@@ -29,8 +31,6 @@ namespace Strawhenge.GameManagement.Unity
                 yield return null;
             }
 
-            UnloadScene("LoadProgress");
-
             foreach (var segment in _segments)
                 segment.BeginLoad();
 
@@ -39,18 +39,10 @@ namespace Strawhenge.GameManagement.Unity
                 yield return null;
             }
 
-            UnloadScene("LoadingScreen");
+            SceneManager.UnloadSceneAsync(SceneNames.LoadingScreen);
 
             Destroy(gameObject);
             Time.timeScale = 1;
-        }
-
-        static void UnloadScene(string name)
-        {
-            var scene = SceneManager.GetSceneByName(name);
-
-            if (scene.isLoaded)
-                SceneManager.UnloadSceneAsync(scene);
         }
     }
 }

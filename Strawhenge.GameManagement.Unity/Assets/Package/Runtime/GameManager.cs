@@ -8,11 +8,16 @@ namespace Strawhenge.GameManagement.Unity
     public class GameManager : IGameManager
     {
         readonly ISaveDataSelector _saveDataSelector;
+        readonly ISceneNames _sceneNames;
         readonly ILogger _logger;
 
-        public GameManager(ISaveDataSelector saveDataSelector, ILogger logger)
+        public GameManager(
+            ISaveDataSelector saveDataSelector,
+            ISceneNames sceneNames,
+            ILogger logger)
         {
             _saveDataSelector = saveDataSelector;
+            _sceneNames = sceneNames;
             _logger = logger;
         }
 
@@ -21,7 +26,7 @@ namespace Strawhenge.GameManagement.Unity
             _logger.LogInformation("Starting new game.");
 
             _saveDataSelector.SelectNewGame();
-            SceneManager.LoadScene("LoadingScreen");
+            SceneManager.LoadScene(_sceneNames.LoadingScreen);
         }
 
         public void LoadSave(SaveMetaData save)
@@ -29,13 +34,13 @@ namespace Strawhenge.GameManagement.Unity
             _logger.LogInformation($"Loading save '{save.Id}'.");
 
             _saveDataSelector.SelectSave(save);
-            SceneManager.LoadScene("LoadingScreen");
+            SceneManager.LoadScene(_sceneNames.LoadingScreen);
         }
 
         public void MainMenu()
         {
             _logger.LogInformation("Returning to main menu.");
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene(_sceneNames.MainMenu);
         }
 
         public void Quit()

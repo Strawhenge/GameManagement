@@ -8,7 +8,9 @@ namespace Strawhenge.GameManagement.Unity
     public class LoadingScreenScript : MonoBehaviour
     {
         public ISelectedSaveDataLoader SelectedSaveDataLoader { private get; set; }
-        
+
+        public ISceneNames SceneNames { private get; set; }
+
         void Start()
         {
             StartCoroutine(LoadMainScene());
@@ -19,13 +21,13 @@ namespace Strawhenge.GameManagement.Unity
         {
             yield return new WaitForEndOfFrame();
 
-            SceneManager.LoadSceneAsync("Main", LoadSceneMode.Additive).completed += _ =>
+            SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Additive).completed += _ =>
             {
                 SceneManager.SetActiveScene(
-                    SceneManager.GetSceneByName("Main"));
+                    SceneManager.GetSceneByName(SceneNames.Game));
             };
         }
-        
+
         IEnumerator LoadProgress()
         {
             var task = SelectedSaveDataLoader.LoadProgress();
