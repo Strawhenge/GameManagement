@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 1717984646911624525}
   - component: {fileID: 3145771975508659816}
   m_Layer: 0
-  m_Name: RestartMenu
+  m_Name: Restart Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1135,7 +1135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 361254174084014179, guid: a16c722452990a74ba48f9e720059123, type: 3}
       propertyPath: m_Name
-      value: LoadGameMenu
+      value: Load Game Menu
       objectReference: {fileID: 0}
     - target: {fileID: 361254174084014179, guid: a16c722452990a74ba48f9e720059123, type: 3}
       propertyPath: m_IsActive
