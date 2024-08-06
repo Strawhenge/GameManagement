@@ -1,20 +1,20 @@
+using Strawhenge.GameManagement.Saving;
 using System;
 using System.Collections;
-using Strawhenge.GameManagement.Saving;
 using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity
 {
     public class SavingScript : MonoBehaviour
     {
-        [SerializeField] GameObject _ui;
+        [SerializeField] Canvas _canvas;
         bool _inProgress;
 
         public ISaveGameCommandFactory SaveGameCommandFactory { private get; set; }
 
         void Awake()
         {
-            _ui.SetActive(false);
+            _canvas.enabled = false;
         }
 
         public void Save(
@@ -29,7 +29,7 @@ namespace Strawhenge.GameManagement.Unity
             }
 
             _inProgress = true;
-            _ui.SetActive(true);
+            _canvas.enabled = true;
 
             StartCoroutine(
                 PerformSave(onSafeToReturnToGameplay, onCompleted, saveToOverwrite));
@@ -48,7 +48,7 @@ namespace Strawhenge.GameManagement.Unity
             yield return new WaitUntil(() => task.IsCompleted);
 
             _inProgress = false;
-            _ui.SetActive(false);
+            _canvas.enabled = false;
             onCompleted();
         }
     }

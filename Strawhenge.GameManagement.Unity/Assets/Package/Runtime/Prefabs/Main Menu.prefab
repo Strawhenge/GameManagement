@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 9183168401309332201}
   - component: {fileID: 9183168401309332202}
   m_Layer: 5
-  m_Name: Main Menu Options
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1096,7 +1096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3609839326596817023, guid: 608fe3fc552a2884d9e5660a32ff5afb, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 0.000000022812767
       objectReference: {fileID: 0}
     - target: {fileID: 4795983885950912236, guid: 608fe3fc552a2884d9e5660a32ff5afb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1168,7 +1168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7707188442041815623, guid: 608fe3fc552a2884d9e5660a32ff5afb, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 608fe3fc552a2884d9e5660a32ff5afb, type: 3}
