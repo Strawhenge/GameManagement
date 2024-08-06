@@ -18,13 +18,11 @@ namespace Strawhenge.GameManagement.Unity
 
         public void Show()
         {
-            gameObject.SetActive(true);
             _saveDataMenu.Show();
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
             _saveDataMenu.Hide();
         }
     }

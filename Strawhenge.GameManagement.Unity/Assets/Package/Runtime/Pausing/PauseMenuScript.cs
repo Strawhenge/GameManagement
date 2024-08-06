@@ -7,8 +7,7 @@ namespace Strawhenge.GameManagement.Unity
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
         [SerializeField] SaveGameMenuScript _saveGameMenu;
-        [SerializeField] GameObject _pauseMenuCanvas;
-        [SerializeField] GameObject _pauseMenuContent;
+        [SerializeField] Canvas _pauseMenuCanvas;
         [SerializeField] Button _continueButton;
         [SerializeField] Button _saveGameButton;
         [SerializeField] Button _loadGameButton;
@@ -24,16 +23,16 @@ namespace Strawhenge.GameManagement.Unity
             _saveGameMenu.Hide();
             _loadGameMenu.Hide();
 
-            _continueButton.onClick.AddListener(OnContinue);
+            _continueButton.onClick.AddListener(OnContinueButtonSelected);
             _saveGameButton.onClick.AddListener(OnSaveGameButtonSelected);
             _loadGameButton.onClick.AddListener(OnLoadGameButtonSelected);
             _mainMenuButton.onClick.AddListener(OnMainMenu);
-            _quitButton.onClick.AddListener(OnQuit);
+            _quitButton.onClick.AddListener(OnQuitButtonSelected);
         }
 
         void Start()
         {
-            _pauseMenuCanvas.SetActive(false);
+            _pauseMenuCanvas.enabled = false;
             PauseGame.Paused += OnPause;
             PauseGame.Resumed += OnResume;
         }
@@ -44,18 +43,23 @@ namespace Strawhenge.GameManagement.Unity
             PauseGame.Resumed -= OnResume;
         }
 
-        void OnPause() => _pauseMenuCanvas.SetActive(true);
+        void OnPause() => _pauseMenuCanvas.enabled = true;
 
-        void OnResume() => _pauseMenuCanvas.SetActive(false);
+        void OnResume()
+        {
+            _pauseMenuCanvas.enabled = false;
+            _saveGameMenu.Hide();
+            _loadGameMenu.Hide();
+        }
 
-        void OnContinue()
+        void OnContinueButtonSelected()
         {
             PauseGame.Resume();
         }
 
         void OnSaveGameButtonSelected()
         {
-            _pauseMenuContent.SetActive(false);
+            _pauseMenuCanvas.enabled = false;
             _saveGameMenu.Show();
             _saveGameMenu.Back += OnReturnFromSaveGameMenu;
             _saveGameMenu.Saved += OnReturnFromSaveGameMenu;
@@ -66,12 +70,12 @@ namespace Strawhenge.GameManagement.Unity
             _saveGameMenu.Back -= OnReturnFromSaveGameMenu;
             _saveGameMenu.Saved -= OnReturnFromSaveGameMenu;
             _saveGameMenu.Hide();
-            _pauseMenuContent.SetActive(true);
+            _pauseMenuCanvas.enabled = true;
         }
 
         void OnLoadGameButtonSelected()
         {
-            _pauseMenuContent.SetActive(false);
+            _pauseMenuCanvas.enabled = false;
             _loadGameMenu.Show();
             _loadGameMenu.Load += OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back += OnBackFromLoadGameMenu;
@@ -91,7 +95,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
             _loadGameMenu.Hide();
-            _pauseMenuContent.SetActive(true);
+            _pauseMenuCanvas.enabled = true;
         }
 
         void OnMainMenu()
@@ -100,7 +104,7 @@ namespace Strawhenge.GameManagement.Unity
             GameManager.MainMenu();
         }
 
-        void OnQuit()
+        void OnQuitButtonSelected()
         {
             GameManager.Quit();
         }

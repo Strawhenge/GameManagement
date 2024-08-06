@@ -7,11 +7,13 @@ namespace Strawhenge.GameManagement.Unity
 {
     public class SaveDataMenuScript : MonoBehaviour
     {
+        [SerializeField] Canvas _canvas;
         [SerializeField] Button _backButton;
         [SerializeField] Transform _selectSaveButtonParent;
         [SerializeField] Button _selectSaveButtonPrefab;
 
         readonly List<GameObject> _selectSaveButtons = new List<GameObject>();
+        GameObject _newSaveButton;
 
         public event Action<SaveMetaData> SaveSelected;
 
@@ -24,15 +26,16 @@ namespace Strawhenge.GameManagement.Unity
             _backButton.onClick.AddListener((() => BackSelected?.Invoke()));
         }
 
-        public void Show()
+        public void Show(bool showNewSaveButton = false)
         {
-            gameObject.SetActive(true);
+            _newSaveButton?.SetActive(showNewSaveButton);
+            _canvas.enabled = true;
             PopulateSaves();
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
+            _canvas.enabled = false;
 
             foreach (var button in _selectSaveButtons)
                 Destroy(button);
@@ -40,7 +43,10 @@ namespace Strawhenge.GameManagement.Unity
             _selectSaveButtons.Clear();
         }
 
-        public void AddPermanentButton(string text, Action onSelect) => AddButton(text, onSelect);
+        public void AddNewSaveButton(string text, Action onSelect)
+        {
+            _newSaveButton = AddButton(text, onSelect);
+        }
 
         void PopulateSaves()
         {
