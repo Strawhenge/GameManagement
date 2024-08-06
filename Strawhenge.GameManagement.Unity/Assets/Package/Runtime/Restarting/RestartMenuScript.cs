@@ -6,8 +6,7 @@ namespace Strawhenge.GameManagement.Unity
     public class RestartMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
-        [SerializeField] GameObject _restartMenuCanvas;
-        [SerializeField] GameObject _restartMenuContent;
+        [SerializeField] Canvas _restartMenuCanvas;
         [SerializeField] Button _restartButton;
         [SerializeField] Button _loadGameButton;
         [SerializeField] Button _mainMenuButton;
@@ -31,7 +30,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void Start()
         {
-            _restartMenuCanvas.SetActive(false);
+            _restartMenuCanvas.enabled = false;
             Player.Died += OnPlayerDied;
         }
 
@@ -40,7 +39,7 @@ namespace Strawhenge.GameManagement.Unity
             Player.Died -= OnPlayerDied;
         }
 
-        void OnPlayerDied() => _restartMenuCanvas.SetActive(true);
+        void OnPlayerDied() => _restartMenuCanvas.enabled = true;
 
         void OnRestartButtonSelected()
         {
@@ -54,7 +53,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnLoadGameButtonSelected()
         {
-            _restartMenuContent.SetActive(false);
+            _restartMenuCanvas.enabled = false;
             _loadGameMenu.Show();
             _loadGameMenu.Load += OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back += OnBackFromLoadGameMenu;
@@ -73,7 +72,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
             _loadGameMenu.Hide();
-            _restartMenuContent.SetActive(true);
+            _restartMenuCanvas.enabled = true;
         }
 
         void OnMainMenuButtonSelected()

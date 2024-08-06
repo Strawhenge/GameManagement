@@ -25,18 +25,16 @@ namespace Strawhenge.GameManagement.Unity
             _saveDataMenu.SaveSelected += OnSaveSelected;
 
             _onNewSaveSelectedStrategy = () => Save();
-            _saveDataMenu.AddPermanentButton("New Save", () => _onNewSaveSelectedStrategy());
+            _saveDataMenu.AddNewSaveButton("New Save", () => _onNewSaveSelectedStrategy());
         }
 
         public void Show()
         {
-            gameObject.SetActive(true);
-            _saveDataMenu.Show();
+            _saveDataMenu.Show(showNewSaveButton: true);
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
             _saveDataMenu.Hide();
         }
 

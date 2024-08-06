@@ -6,7 +6,7 @@ namespace Strawhenge.GameManagement.Unity
     public class MainMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
-
+        [SerializeField] Canvas _canvas;
         [SerializeField] Button _continueButton;
         [SerializeField] Button _newGameButton;
         [SerializeField] Button _loadGameButton;
@@ -40,7 +40,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnLoadGame()
         {
-            gameObject.SetActive(false);
+            _canvas.enabled = false;
             _loadGameMenu.Show();
             _loadGameMenu.Back += OnBackFromLoadGameMenu;
             _loadGameMenu.Load += OnSaveSelectedFromLoadGameMenu;
@@ -51,7 +51,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Hide();
-            gameObject.SetActive(true);
+            _canvas.enabled = true;
         }
 
         void OnSaveSelectedFromLoadGameMenu(SaveMetaData save)
