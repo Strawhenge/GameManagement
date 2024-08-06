@@ -7,6 +7,7 @@ namespace Strawhenge.GameManagement.Unity
 {
     public class SaveDataMenuScript : MonoBehaviour
     {
+        [SerializeField] string _newSaveButtonText = "New Save";
         [SerializeField] Canvas _canvas;
         [SerializeField] Button _backButton;
         [SerializeField] Transform _selectSaveButtonParent;
@@ -15,37 +16,48 @@ namespace Strawhenge.GameManagement.Unity
         readonly List<GameObject> _selectSaveButtons = new List<GameObject>();
         GameObject _newSaveButton;
 
-        public event Action<SaveMetaData> SaveSelected;
-
-        public event Action BackSelected;
+        Action<SaveMetaData> _onSaveSelected;
+        Action _onBackSelected;
+        Action _onNewSaveSelected;
 
         public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
 
         void Awake()
         {
-            _backButton.onClick.AddListener((() => BackSelected?.Invoke()));
+            _backButton.onClick.AddListener(() => _onBackSelected?.Invoke());
+
+            _newSaveButton = AddButton(
+                _newSaveButtonText,
+                onSelect: () => _onNewSaveSelected?.Invoke());
         }
 
-        public void Show(bool showNewSaveButton = false)
+        public void Show(
+            Action onBackSelected,
+            Action<SaveMetaData> onSaveSelected,
+            Action onNewSaveSelected = null)
         {
-            _newSaveButton?.SetActive(showNewSaveButton);
+            _onBackSelected = onBackSelected;
+            _onSaveSelected = onSaveSelected;
+
+            _onNewSaveSelected = onNewSaveSelected;
+            _newSaveButton?.SetActive(_onNewSaveSelected != null);
+
             _canvas.enabled = true;
             PopulateSaves();
         }
 
         public void Hide()
         {
+            _onBackSelected = null;
+            _onSaveSelected = null;
+            _onNewSaveSelected = null;
+
             _canvas.enabled = false;
 
             foreach (var button in _selectSaveButtons)
                 Destroy(button);
 
             _selectSaveButtons.Clear();
-        }
-
-        public void AddNewSaveButton(string text, Action onSelect)
-        {
-            _newSaveButton = AddButton(text, onSelect);
         }
 
         void PopulateSaves()
@@ -56,7 +68,7 @@ namespace Strawhenge.GameManagement.Unity
             {
                 var button = AddButton(
                     save.DateTimeCreated.ToString("HH:mm:ss dd/MM/yyyy"),
-                    () => SaveSelected?.Invoke(save));
+                    () => _onSaveSelected?.Invoke(save));
 
                 _selectSaveButtons.Add(button.gameObject);
             }

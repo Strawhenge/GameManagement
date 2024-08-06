@@ -8,6 +8,8 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] SaveDataMenuScript _saveDataMenu;
         [SerializeField] SavingScript _saving;
 
+        Action _onBackSelectedStrategy;
+        Action<SaveMetaData> _onSaveSelectedStrategy;
         Action _onNewSaveSelectedStrategy;
 
         public event Action Saved;
@@ -21,16 +23,17 @@ namespace Strawhenge.GameManagement.Unity
                 return;
             }
 
-            _saveDataMenu.BackSelected += OnBack;
-            _saveDataMenu.SaveSelected += OnSaveSelected;
-
+            _onBackSelectedStrategy = OnBack;
+            _onSaveSelectedStrategy = OnSaveSelected;
             _onNewSaveSelectedStrategy = () => Save();
-            _saveDataMenu.AddNewSaveButton("New Save", () => _onNewSaveSelectedStrategy());
         }
 
         public void Show()
         {
-            _saveDataMenu.Show(showNewSaveButton: true);
+            _saveDataMenu.Show(
+                onBackSelected: () => _onBackSelectedStrategy(),
+                onSaveSelected: save => _onSaveSelectedStrategy(save),
+                onNewSaveSelected: () => _onNewSaveSelectedStrategy());
         }
 
         public void Hide()
@@ -40,19 +43,19 @@ namespace Strawhenge.GameManagement.Unity
 
         void Save(SaveMetaData saveToOverwrite = null)
         {
-            _saveDataMenu.BackSelected -= OnBack;
-            _saveDataMenu.SaveSelected -= OnSaveSelected;
+            _onBackSelectedStrategy = () => { };
+            _onSaveSelectedStrategy = _ => { };
             _onNewSaveSelectedStrategy = () => { };
 
             _saving.Save(
                 onSafeToReturnToGameplay: () =>
                 {
-                    _saveDataMenu.BackSelected += OnBack;
+                    _onBackSelectedStrategy = OnBack;
                     Saved?.Invoke();
                 },
                 onCompleted: () =>
                 {
-                    _saveDataMenu.SaveSelected += OnSaveSelected;
+                    _onSaveSelectedStrategy = OnSaveSelected;
                     _onNewSaveSelectedStrategy = () => Save();
                 },
                 saveToOverwrite);

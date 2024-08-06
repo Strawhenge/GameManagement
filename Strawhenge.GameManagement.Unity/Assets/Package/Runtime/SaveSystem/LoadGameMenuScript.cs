@@ -10,15 +10,11 @@ namespace Strawhenge.GameManagement.Unity
         public event Action<SaveMetaData> Load;
         public event Action Back;
 
-        void Awake()
-        {
-            _saveDataMenu.BackSelected += () => Back?.Invoke();
-            _saveDataMenu.SaveSelected += save => Load?.Invoke(save);
-        }
-
         public void Show()
         {
-            _saveDataMenu.Show();
+            _saveDataMenu.Show(
+                onBackSelected: () => Back?.Invoke(),
+                onSaveSelected: save => Load?.Invoke(save));
         }
 
         public void Hide()
