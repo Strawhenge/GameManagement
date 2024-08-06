@@ -47,7 +47,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811349973385175300}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -983,7 +983,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4795983885950912236}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.3032598
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
