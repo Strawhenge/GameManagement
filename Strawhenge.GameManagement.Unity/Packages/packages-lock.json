@@ -7,14 +7,14 @@
       "dependencies": {
         "com.strawhenge.functionalutilities": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release"
       },
-      "hash": "4be1859faaf817843923f85c9b00175fb165dff3"
+      "hash": "8a29e3c544d1d8329c6d0d134d5e840634cdb934"
     },
     "com.strawhenge.functionalutilities": {
       "version": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "75d1f4e2134aaa02de62c912c6e789a464c2d66f"
+      "hash": "7b2013d0d61ff70edc698a08ba2646a616d71870"
     },
     "com.unity.collab-proxy": {
       "version": "1.17.7",
@@ -97,9 +97,9 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.androidjni": "1.0.0",
         "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.modules.androidjni": "1.0.0"
+        "com.unity.modules.unitywebrequest": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -145,9 +145,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
