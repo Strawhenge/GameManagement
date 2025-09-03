@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using Strawhenge.GameManagement.Loading;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Strawhenge.GameManagement.Unity
@@ -9,6 +10,7 @@ namespace Strawhenge.GameManagement.Unity
     public class PostGameSceneLoadedScript : MonoBehaviour
     {
         [SerializeField] PostGameSceneLoadedSegmentScript[] _segments;
+        [SerializeField] UnityEvent _completed;
 
         public ISelectedSaveDataState SaveDataState { private get; set; }
 
@@ -43,8 +45,9 @@ namespace Strawhenge.GameManagement.Unity
             if (loadingScreen.isLoaded)
                 SceneManager.UnloadSceneAsync(SceneNames.LoadingScreen);
 
-            Destroy(gameObject);
+            _completed.Invoke();
             Time.timeScale = 1;
+            Destroy(gameObject);
         }
     }
 }
