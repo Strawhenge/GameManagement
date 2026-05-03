@@ -7,14 +7,14 @@
       "dependencies": {
         "com.strawhenge.functionalutilities": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release"
       },
-      "hash": "8a29e3c544d1d8329c6d0d134d5e840634cdb934"
+      "hash": "1db85e1458653f8a5048ed972ffc625ac52c5b32"
     },
     "com.strawhenge.functionalutilities": {
       "version": "https://github.com/Strawhenge/FunctionalUtilities.git?path=/Package#release",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "7b2013d0d61ff70edc698a08ba2646a616d71870"
+      "hash": "6476e3d79e71760bc3e6336b5df382884b330e74"
     },
     "com.unity.collab-proxy": {
       "version": "1.17.7",
@@ -54,7 +54,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.18",
+      "version": "3.0.40",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -111,7 +111,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.31",
+      "version": "1.1.33",
       "depth": 0,
       "source": "registry",
       "dependencies": {
