@@ -94,6 +94,12 @@ public class InitializerScript : MonoBehaviour
             restartMenu.SaveMetaDataRepository = _saveMetaDataRepository;
             restartMenu.Player = _playerState;
         }
+
+        if (FindObjectOfType<PostGameSceneLoadedScript>() is PostGameSceneLoadedScript postGameSceneLoaded)
+        {
+            postGameSceneLoaded.SaveDataState = _saveDataSelectorController;
+            postGameSceneLoaded.SceneNames = _sceneNames;
+        }
     }
 }
 
