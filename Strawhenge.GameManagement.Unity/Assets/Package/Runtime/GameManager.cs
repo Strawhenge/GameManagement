@@ -46,7 +46,11 @@ namespace Strawhenge.GameManagement.Unity
         public void Quit()
         {
             _logger.LogInformation("Quitting application.");
-            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
     }
 }
