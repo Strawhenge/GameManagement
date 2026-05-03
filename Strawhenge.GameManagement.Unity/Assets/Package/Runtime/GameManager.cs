@@ -1,4 +1,5 @@
 ﻿using Strawhenge.GameManagement.Loading;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ILogger = Strawhenge.Common.Logging.ILogger;
@@ -47,9 +48,9 @@ namespace Strawhenge.GameManagement.Unity
         {
             _logger.LogInformation("Quitting application.");
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #else
-        Application.Quit();
+            UnityEngine.Application.Quit();
 #endif
         }
     }
