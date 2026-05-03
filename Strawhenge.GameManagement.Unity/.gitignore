@@ -76,3 +76,5 @@ crashlytics-build.properties
 !/[Aa]ssets/Package/
 !/[Aa]ssets/Package.meta
 /[Aa]ssets/Package/Runtime/Strawhenge.GameManagement.dll
+!/[Aa]ssets/Tests/
+!/[Aa]ssets/Tests.meta
