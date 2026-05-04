@@ -112,6 +112,7 @@ public class InitializerScript : MonoBehaviour
         if (FindObjectOfType<InputScript>() is InputScript input)
         {
             input.PauseGame = _pauseGame;
+            input.PlayerState = _playerState;
         }
 
         PopulateSaveRepository();
@@ -151,6 +152,8 @@ public class InitializerScript : MonoBehaviour
 class PlayerState : IPlayerState
 {
     public event Action Died;
+
+    public void InvokeDied() => Died?.Invoke();
 }
 
 class SaveDataGenerator : ISaveDataGenerator<SaveData>

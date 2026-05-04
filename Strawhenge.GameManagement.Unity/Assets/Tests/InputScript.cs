@@ -13,6 +13,8 @@ public class InputScript : MonoBehaviour
 
     public IPauseGame PauseGame { private get; set; }
 
+    internal PlayerState PlayerState { private get; set; }
+
     void Update()
     {
         _playerDirection = new Vector3(
@@ -25,6 +27,9 @@ public class InputScript : MonoBehaviour
             else
                 PauseGame.Pause();
         }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+            PlayerState.InvokeDied();
     }
 
     void FixedUpdate()
