@@ -1,6 +1,6 @@
 using Strawhenge.GameManagement.Unity;
 
-public class SceneNames : ISceneNames
+class SceneNames : ISceneNames
 {
     public string MainMenu => "Main Menu";
 
