@@ -109,6 +109,11 @@ public class InitializerScript : MonoBehaviour
             waitForSecondsSegment.SaveDataAccessor = _currentSaveDataContainer;
         }
 
+        if (FindObjectOfType<InputScript>() is InputScript input)
+        {
+            input.PauseGame = _pauseGame;
+        }
+
         PopulateSaveRepository();
     }
 
