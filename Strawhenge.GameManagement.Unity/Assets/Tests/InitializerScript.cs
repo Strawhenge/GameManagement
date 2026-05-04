@@ -1,14 +1,9 @@
-﻿using FunctionalUtilities;
-using Strawhenge.Common.Unity;
-using Strawhenge.GameManagement;
+﻿using Strawhenge.Common.Unity;
 using Strawhenge.GameManagement.CurrentSaveData;
 using Strawhenge.GameManagement.Loading;
 using Strawhenge.GameManagement.Saving;
 using Strawhenge.GameManagement.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
@@ -146,72 +141,5 @@ public class InitializerScript : MonoBehaviour
             },
             Guid.NewGuid(),
             DateTime.UtcNow.AddDays(-2));
-    }
-}
-
-class PlayerState : IPlayerState
-{
-    public event Action Died;
-
-    public void InvokeDied() => Died?.Invoke();
-}
-
-class SaveDataGenerator : ISaveDataGenerator<SaveData>
-{
-    public SaveData GenerateForCurrentGameState()
-    {
-        return new SaveData();
-    }
-}
-
-class DefaultSaveDataFactory : IDefaultSaveDataFactory<SaveData>
-{
-    public SaveData Create()
-    {
-        return new SaveData();
-    }
-}
-
-class InMemorySaveDataRepository : ISaveDataRepository<SaveData>, ISaveMetaDataRepository
-{
-    readonly Dictionary<Guid, SaveData> _saveDataById = new();
-    readonly Dictionary<Guid, SaveMetaData> _saveMetaDataById = new();
-
-    public void Add(SaveData saveData, Guid id, DateTime dateTimeCreated)
-    {
-        _saveDataById.Add(id, saveData);
-        _saveMetaDataById.Add(id, new SaveMetaData(id, dateTimeCreated));
-    }
-
-    Task<SaveData> ISaveDataRepository<SaveData>.GetAsync(Guid id)
-    {
-        return Task.FromResult(_saveDataById[id]);
-    }
-
-    Task ISaveDataRepository<SaveData>.DeleteAsync(Guid id)
-    {
-        _saveDataById.Remove(id);
-        _saveMetaDataById.Remove(id);
-        return Task.CompletedTask;
-    }
-
-    Task ISaveDataRepository<SaveData>.SaveAsync(SaveData saveData)
-    {
-        var id = Guid.NewGuid();
-        _saveDataById.Add(id, saveData);
-        _saveMetaDataById.Add(id, new SaveMetaData(id, DateTime.UtcNow));
-        return Task.CompletedTask;
-    }
-
-    IReadOnlyList<SaveMetaData> ISaveMetaDataRepository.GetAll()
-    {
-        return _saveMetaDataById.Values.ToArray();
-    }
-
-    Maybe<SaveMetaData> ISaveMetaDataRepository.GetMostRecent()
-    {
-        return _saveMetaDataById.Values
-            .OrderByDescending(m => m.DateTimeCreated)
-            .FirstOrNone();
     }
 }
