@@ -7,6 +7,7 @@ using Strawhenge.GameManagement.Saving;
 using Strawhenge.GameManagement.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
@@ -16,11 +17,10 @@ public class InitializerScript : MonoBehaviour
     static ILogger _logger;
     static DefaultSaveDataFactory _defaultSaveDataFactory;
     static CurrentSaveDataContainer<SaveData> _currentSaveDataContainer;
-    static SaveDataRepository _saveDataRepository;
+    static InMemorySaveDataRepository _saveDataRepository;
     static SelectedSaveDataController<SaveData> _saveDataSelectorController;
     static SceneNames _sceneNames;
     static GameManager _gameManager;
-    static SaveMetaDataRepository _saveMetaDataRepository;
     static PauseGame _pauseGame;
     static SaveGameCommandFactory<SaveData> _saveGameCommandFactory;
     static SaveDataGenerator _saveDataGenerator;
@@ -35,7 +35,7 @@ public class InitializerScript : MonoBehaviour
         _currentSaveDataContainer ??= new CurrentSaveDataContainer<SaveData>(
             _defaultSaveDataFactory);
 
-        _saveDataRepository ??= new SaveDataRepository();
+        _saveDataRepository ??= new InMemorySaveDataRepository();
 
         _saveDataSelectorController ??= new SelectedSaveDataController<SaveData>(
             _currentSaveDataContainer,
@@ -47,8 +47,6 @@ public class InitializerScript : MonoBehaviour
             _saveDataSelectorController,
             _sceneNames,
             _logger);
-
-        _saveMetaDataRepository ??= new SaveMetaDataRepository();
 
         _pauseGame = new PauseGame(_logger);
 
@@ -63,12 +61,12 @@ public class InitializerScript : MonoBehaviour
         if (FindObjectOfType<MainMenuScript>() is MainMenuScript mainMenu)
         {
             mainMenu.GameManager = _gameManager;
-            mainMenu.SaveMetaDataRepository = _saveMetaDataRepository;
+            mainMenu.SaveMetaDataRepository = _saveDataRepository;
         }
 
         if (FindObjectOfType<SaveDataMenuScript>() is SaveDataMenuScript saveDataMenu)
         {
-            saveDataMenu.SaveMetaDataRepository = _saveMetaDataRepository;
+            saveDataMenu.SaveMetaDataRepository = _saveDataRepository;
         }
 
         if (FindObjectOfType<LoadingScreenScript>() is LoadingScreenScript loadingScreen)
@@ -91,7 +89,7 @@ public class InitializerScript : MonoBehaviour
         if (FindObjectOfType<RestartMenuScript>() is RestartMenuScript restartMenu)
         {
             restartMenu.GameManager = _gameManager;
-            restartMenu.SaveMetaDataRepository = _saveMetaDataRepository;
+            restartMenu.SaveMetaDataRepository = _saveDataRepository;
             restartMenu.Player = _playerState;
         }
 
@@ -124,27 +122,46 @@ class DefaultSaveDataFactory : IDefaultSaveDataFactory<SaveData>
     }
 }
 
-class SaveDataRepository : ISaveDataRepository<SaveData>
+class InMemorySaveDataRepository : ISaveDataRepository<SaveData>, ISaveMetaDataRepository
 {
-    public Task<SaveData> GetAsync(Guid id)
+    readonly Dictionary<Guid, SaveData> _saveDataById = new();
+    readonly Dictionary<Guid, SaveMetaData> _saveMetaDataById = new();
+
+    public void Add(SaveData saveData, Guid id, DateTime dateTimeCreated)
     {
-        throw new NotImplementedException();
+        _saveDataById.Add(id, saveData);
+        _saveMetaDataById.Add(id, new SaveMetaData(id, dateTimeCreated));
     }
 
-    public Task DeleteAsync(Guid id)
+    Task<SaveData> ISaveDataRepository<SaveData>.GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_saveDataById[id]);
     }
 
-    public Task SaveAsync(SaveData saveData)
+    Task ISaveDataRepository<SaveData>.DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        _saveDataById.Remove(id);
+        _saveMetaDataById.Remove(id);
+        return Task.CompletedTask;
     }
-}
 
-class SaveMetaDataRepository : ISaveMetaDataRepository
-{
-    public IReadOnlyList<SaveMetaData> GetAll() => Array.Empty<SaveMetaData>();
+    Task ISaveDataRepository<SaveData>.SaveAsync(SaveData saveData)
+    {
+        var id = Guid.NewGuid();
+        _saveDataById.Add(id, saveData);
+        _saveMetaDataById.Add(id, new SaveMetaData(id, DateTime.UtcNow));
+        return Task.CompletedTask;
+    }
 
-    public Maybe<SaveMetaData> GetMostRecent() => Maybe.None<SaveMetaData>();
+    IReadOnlyList<SaveMetaData> ISaveMetaDataRepository.GetAll()
+    {
+        return _saveMetaDataById.Values.ToArray();
+    }
+
+    Maybe<SaveMetaData> ISaveMetaDataRepository.GetMostRecent()
+    {
+        return _saveMetaDataById.Values
+            .OrderByDescending(m => m.DateTimeCreated)
+            .FirstOrNone();
+    }
 }
