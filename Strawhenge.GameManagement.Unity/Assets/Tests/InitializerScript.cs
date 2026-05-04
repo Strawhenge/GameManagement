@@ -98,6 +98,48 @@ public class InitializerScript : MonoBehaviour
             postGameSceneLoaded.SaveDataState = _saveDataSelectorController;
             postGameSceneLoaded.SceneNames = _sceneNames;
         }
+
+        if (FindObjectOfType<PlayerPositionSegmentScript>() is PlayerPositionSegmentScript playerPositionSegment)
+        {
+            playerPositionSegment.SaveDataAccessor = _currentSaveDataContainer;
+        }
+
+        if (FindObjectOfType<WaitForSecondsSegmentScript>() is WaitForSecondsSegmentScript waitForSecondsSegment)
+        {
+            waitForSecondsSegment.SaveDataAccessor = _currentSaveDataContainer;
+        }
+
+        PopulateSaveRepository();
+    }
+
+    void PopulateSaveRepository()
+    {
+        _saveDataRepository.Add(
+            new SaveData
+            {
+                PlayerPosition = Vector3.zero,
+                SecondsToWait = 0
+            },
+            Guid.NewGuid(),
+            DateTime.UtcNow.AddSeconds(-5));
+
+        _saveDataRepository.Add(
+            new SaveData
+            {
+                PlayerPosition = new Vector3(0, 10, 0),
+                SecondsToWait = 3
+            },
+            Guid.NewGuid(),
+            DateTime.UtcNow.AddHours(-1));
+
+        _saveDataRepository.Add(
+            new SaveData
+            {
+                PlayerPosition = new Vector3(4, 0, 0),
+                SecondsToWait = 8
+            },
+            Guid.NewGuid(),
+            DateTime.UtcNow.AddDays(-2));
     }
 }
 
