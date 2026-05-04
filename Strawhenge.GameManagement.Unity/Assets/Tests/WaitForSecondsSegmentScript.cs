@@ -20,8 +20,8 @@ public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
     {
         var saveData = SaveDataAccessor.CurrentSaveData;
         var seconds = saveData.SecondsToWait;
-        
-        yield return new WaitForSeconds(seconds);
+
+        yield return new WaitForSecondsRealtime(seconds);
         _isCompleted = true;
     }
 }
