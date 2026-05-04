@@ -21,7 +21,7 @@ public class InitializerScript : MonoBehaviour
     static SaveDataGenerator _saveDataGenerator;
     static PlayerState _playerState;
     static bool _isSaveRepositoryPopulated;
-    
+
     void Awake()
     {
         _logger ??= GlobalUnityLogger.Instance;
@@ -98,6 +98,7 @@ public class InitializerScript : MonoBehaviour
         if (FindObjectOfType<PlayerPositionSegmentScript>() is PlayerPositionSegmentScript playerPositionSegment)
         {
             playerPositionSegment.SaveDataAccessor = _currentSaveDataContainer;
+            playerPositionSegment.SaveDataGenerator = _saveDataGenerator;
         }
 
         if (FindObjectOfType<WaitForSecondsSegmentScript>() is WaitForSecondsSegmentScript waitForSecondsSegment)
@@ -118,7 +119,7 @@ public class InitializerScript : MonoBehaviour
     {
         if (_isSaveRepositoryPopulated) return;
         _isSaveRepositoryPopulated = true;
-        
+
         _saveDataRepository.Add(
             new SaveData
             {

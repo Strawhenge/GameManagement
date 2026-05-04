@@ -9,12 +9,15 @@ public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
 
     public ICurrentSaveDataAccessor<SaveData> SaveDataAccessor { private get; set; }
 
+    internal SaveDataGenerator SaveDataGenerator {private get; set; }
+
     bool _isCompleted;
 
     public override bool IsCompleted => _isCompleted;
 
     public override void Run()
     {
+        SaveDataGenerator.Player = _player;
         StartCoroutine(SetPlayerPosition());
     }
 
