@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-class InMemorySaveDataRepository : ISaveDataRepository<SaveData>, ISaveMetaDataRepository
+class InMemorySaveDataRepository : ISaveRepository<SaveData>
 {
     readonly Dictionary<Guid, SaveData> _saveDataById = new();
     readonly Dictionary<Guid, SaveMetaData> _saveMetaDataById = new();
