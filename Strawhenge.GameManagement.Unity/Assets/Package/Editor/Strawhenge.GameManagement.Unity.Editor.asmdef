@@ -1,0 +1,18 @@
+{
+    "name": "Strawhenge.GameManagement.Unity.Editor",
+    "rootNamespace": "Strawhenge.GameManagement.Unity.Editor",
+    "references": [
+        "GUID:8c1d4f2813e706844b44133dab3a233a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
