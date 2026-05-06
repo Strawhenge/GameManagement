@@ -13,7 +13,7 @@ public class InputScript : MonoBehaviour
 
     public PauseGame PauseGame { private get; set; }
 
-    internal PlayerState PlayerState { private get; set; }
+    internal RestartGame RestartGame { private get; set; }
 
     void Update()
     {
@@ -29,7 +29,7 @@ public class InputScript : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
-            PlayerState.InvokeDied();
+            RestartGame.Restart();
     }
 
     void FixedUpdate()

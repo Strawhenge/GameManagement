@@ -16,7 +16,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
 
-        public IPlayerState Player { private get; set; }
+        public RestartGame RestartGame { private get; set; }
 
         void Awake()
         {
@@ -31,15 +31,15 @@ namespace Strawhenge.GameManagement.Unity
         void Start()
         {
             _restartMenuCanvas.enabled = false;
-            Player.Died += OnPlayerDied;
+            RestartGame.Restarting += OnRestarting;
         }
 
         void OnDestroy()
         {
-            Player.Died -= OnPlayerDied;
+            RestartGame.Restarting -= OnRestarting;
         }
 
-        void OnPlayerDied() => _restartMenuCanvas.enabled = true;
+        void OnRestarting() => _restartMenuCanvas.enabled = true;
 
         void OnRestartButtonSelected()
         {

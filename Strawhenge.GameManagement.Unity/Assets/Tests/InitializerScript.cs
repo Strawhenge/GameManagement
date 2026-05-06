@@ -19,7 +19,7 @@ public class InitializerScript : MonoBehaviour
     static PauseGame _pauseGame;
     static SaveGameCommandFactory<SaveData> _saveGameCommandFactory;
     static SaveDataGenerator _saveDataGenerator;
-    static PlayerState _playerState;
+    static RestartGame _restartGame;
     static bool _isSaveRepositoryPopulated;
 
     void Awake()
@@ -52,7 +52,7 @@ public class InitializerScript : MonoBehaviour
             _saveDataGenerator,
             _saveDataRepository);
 
-        _playerState ??= new PlayerState();
+        _restartGame ??= new RestartGame();
 
         if (FindObjectOfType<MainMenuScript>() is MainMenuScript mainMenu)
         {
@@ -86,7 +86,7 @@ public class InitializerScript : MonoBehaviour
         {
             restartMenu.GameManager = _gameManager;
             restartMenu.SaveMetaDataRepository = _saveDataRepository;
-            restartMenu.Player = _playerState;
+            restartMenu.RestartGame = _restartGame;
         }
 
         if (FindObjectOfType<PostGameSceneLoadedScript>() is PostGameSceneLoadedScript postGameSceneLoaded)
@@ -109,7 +109,7 @@ public class InitializerScript : MonoBehaviour
         if (FindObjectOfType<InputScript>() is InputScript input)
         {
             input.PauseGame = _pauseGame;
-            input.PlayerState = _playerState;
+            input.RestartGame = _restartGame;
         }
 
         PopulateSaveRepository();
