@@ -18,7 +18,7 @@ public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
 
     IEnumerator Wait()
     {
-        var saveData = SaveDataAccessor.CurrentSaveData;
+        var saveData = SaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData());
         var seconds = saveData.SecondsToWait;
 
         yield return new WaitForSecondsRealtime(seconds);

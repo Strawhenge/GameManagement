@@ -1,7 +1,9 @@
-﻿namespace Strawhenge.GameManagement.CurrentSaveData
+﻿using FunctionalUtilities;
+
+namespace Strawhenge.GameManagement.CurrentSaveData
 {
     public interface ICurrentSaveDataAccessor<TSaveData>
     {
-        TSaveData CurrentSaveData { get; }
+        Maybe<TSaveData> CurrentSaveData { get; }
     }
 }

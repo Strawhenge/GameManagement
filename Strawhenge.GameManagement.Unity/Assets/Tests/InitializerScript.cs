@@ -10,7 +10,6 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 public class InitializerScript : MonoBehaviour
 {
     static ILogger _logger;
-    static DefaultSaveDataFactory _defaultSaveDataFactory;
     static CurrentSaveDataContainer<SaveData> _currentSaveDataContainer;
     static InMemorySaveDataRepository _saveDataRepository;
     static SelectedSaveDataController<SaveData> _saveDataSelectorController;
@@ -26,10 +25,8 @@ public class InitializerScript : MonoBehaviour
     {
         _logger ??= GlobalUnityLogger.Instance;
 
-        _defaultSaveDataFactory ??= new DefaultSaveDataFactory();
 
-        _currentSaveDataContainer ??= new CurrentSaveDataContainer<SaveData>(
-            _defaultSaveDataFactory);
+        _currentSaveDataContainer ??= new CurrentSaveDataContainer<SaveData>();
 
         _saveDataRepository ??= new InMemorySaveDataRepository();
 

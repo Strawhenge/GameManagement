@@ -23,7 +23,7 @@ public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
 
     IEnumerator SetPlayerPosition()
     {
-        var saveData = SaveDataAccessor.CurrentSaveData;
+        var saveData = SaveDataAccessor.CurrentSaveData.Reduce(()=> new SaveData());
         var position = saveData.PlayerPosition;
 
         _player.position = position;
