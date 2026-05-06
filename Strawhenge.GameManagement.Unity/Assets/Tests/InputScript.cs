@@ -11,7 +11,7 @@ public class InputScript : MonoBehaviour
 
     Vector3 _playerDirection;
 
-    public IPauseGame PauseGame { private get; set; }
+    public PauseGame PauseGame { private get; set; }
 
     internal PlayerState PlayerState { private get; set; }
 

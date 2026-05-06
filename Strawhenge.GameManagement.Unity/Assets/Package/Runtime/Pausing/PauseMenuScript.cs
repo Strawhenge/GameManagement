@@ -16,7 +16,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public IGameManager GameManager { private get; set; }
 
-        public IPauseGame PauseGame { private get; set; }
+        public PauseGame PauseGame { private get; set; }
 
         void Awake()
         {
