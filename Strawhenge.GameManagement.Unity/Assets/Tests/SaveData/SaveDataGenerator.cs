@@ -12,5 +12,5 @@ class SaveDataGenerator : ISaveDataGenerator<SaveData>
         };
     }
 
-    public Rigidbody Player { private get; set; }
+    public static Rigidbody Player { private get; set; }
 }

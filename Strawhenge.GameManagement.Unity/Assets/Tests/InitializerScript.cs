@@ -1,112 +1,68 @@
-﻿using Strawhenge.Common.Unity;
-using Strawhenge.GameManagement.CurrentSaveData;
-using Strawhenge.GameManagement.Loading;
-using Strawhenge.GameManagement.Saving;
-using Strawhenge.GameManagement.Unity;
+﻿using Strawhenge.GameManagement.Unity;
 using System;
 using UnityEngine;
-using ILogger = Strawhenge.Common.Logging.ILogger;
 
 public class InitializerScript : MonoBehaviour
 {
-    static ILogger _logger;
-    static CurrentSaveDataContainer<SaveData> _currentSaveDataContainer;
-    static InMemorySaveDataRepository _saveDataRepository;
-    static SelectedSaveDataController<SaveData> _saveDataSelectorController;
-    static SceneNames _sceneNames;
-    static GameManager _gameManager;
-    static PauseGame _pauseGame;
-    static SaveGameCommandFactory<SaveData> _saveGameCommandFactory;
-    static SaveDataGenerator _saveDataGenerator;
-    static RestartGame _restartGame;
     static bool _isSaveRepositoryPopulated;
 
     void Awake()
     {
-        _logger ??= GlobalUnityLogger.Instance;
-
-
-        _currentSaveDataContainer ??= new CurrentSaveDataContainer<SaveData>();
-
-        _saveDataRepository ??= new InMemorySaveDataRepository();
-
-        _saveDataSelectorController ??= new SelectedSaveDataController<SaveData>(
-            _currentSaveDataContainer,
-            _saveDataRepository);
-
-        _sceneNames ??= new SceneNames();
-
-        _gameManager ??= new GameManager(
-            _saveDataSelectorController,
-            _sceneNames,
-            _logger);
-
-        _pauseGame = new PauseGame(_logger);
-
-        _saveDataGenerator ??= new SaveDataGenerator();
-
-        _saveGameCommandFactory ??= new SaveGameCommandFactory<SaveData>(
-            _saveDataGenerator,
-            _saveDataRepository);
-
-        _restartGame ??= new RestartGame();
-
         if (FindObjectOfType<MainMenuScript>() is MainMenuScript mainMenu)
         {
-            mainMenu.GameManager = _gameManager;
-            mainMenu.SaveMetaDataRepository = _saveDataRepository;
+            mainMenu.GameManager = GameManagement.GameManager;
+            mainMenu.SaveMetaDataRepository = GameManagement.SaveMetaDataRepository;
         }
 
         if (FindObjectOfType<SaveDataMenuScript>() is SaveDataMenuScript saveDataMenu)
         {
-            saveDataMenu.SaveMetaDataRepository = _saveDataRepository;
+            saveDataMenu.SaveMetaDataRepository = GameManagement.SaveMetaDataRepository;
         }
 
         if (FindObjectOfType<LoadingScreenScript>() is LoadingScreenScript loadingScreen)
         {
-            loadingScreen.SelectedSaveDataLoader = _saveDataSelectorController;
-            loadingScreen.SceneNames = _sceneNames;
+            loadingScreen.SelectedSaveDataLoader = GameManagement.SelectedSaveDataLoader;
+            loadingScreen.SceneNames = GameManagement.SceneNames;
         }
 
         if (FindObjectOfType<PauseMenuScript>() is PauseMenuScript pauseMenu)
         {
-            pauseMenu.GameManager = _gameManager;
-            pauseMenu.PauseGame = _pauseGame;
+            pauseMenu.GameManager = GameManagement.GameManager;
+            pauseMenu.PauseGame = GameManagement.PauseGame;
         }
 
         if (FindObjectOfType<SavingScript>() is SavingScript saving)
         {
-            saving.SaveGameCommandFactory = _saveGameCommandFactory;
+            saving.SaveGameCommandFactory = GameManagement.SaveCommandFactory;
         }
 
         if (FindObjectOfType<RestartMenuScript>() is RestartMenuScript restartMenu)
         {
-            restartMenu.GameManager = _gameManager;
-            restartMenu.SaveMetaDataRepository = _saveDataRepository;
-            restartMenu.RestartGame = _restartGame;
+            restartMenu.GameManager = GameManagement.GameManager;
+            restartMenu.SaveMetaDataRepository = GameManagement.SaveMetaDataRepository;
+            restartMenu.RestartGame = GameManagement.RestartGame;
         }
 
         if (FindObjectOfType<PostGameSceneLoadedScript>() is PostGameSceneLoadedScript postGameSceneLoaded)
         {
-            postGameSceneLoaded.SaveDataState = _saveDataSelectorController;
-            postGameSceneLoaded.SceneNames = _sceneNames;
+            postGameSceneLoaded.SaveDataState = GameManagement.SelectedSaveDataState;
+            postGameSceneLoaded.SceneNames = GameManagement.SceneNames;
         }
 
         if (FindObjectOfType<PlayerPositionSegmentScript>() is PlayerPositionSegmentScript playerPositionSegment)
         {
-            playerPositionSegment.SaveDataAccessor = _currentSaveDataContainer;
-            playerPositionSegment.SaveDataGenerator = _saveDataGenerator;
+            playerPositionSegment.SaveDataAccessor = GameManagement<SaveData>.CurrentSaveDataAccessor;
         }
 
         if (FindObjectOfType<WaitForSecondsSegmentScript>() is WaitForSecondsSegmentScript waitForSecondsSegment)
         {
-            waitForSecondsSegment.SaveDataAccessor = _currentSaveDataContainer;
+            waitForSecondsSegment.SaveDataAccessor = GameManagement<SaveData>.CurrentSaveDataAccessor;
         }
 
         if (FindObjectOfType<InputScript>() is InputScript input)
         {
-            input.PauseGame = _pauseGame;
-            input.RestartGame = _restartGame;
+            input.PauseGame = GameManagement.PauseGame;
+            input.RestartGame = GameManagement.RestartGame;
         }
 
         PopulateSaveRepository();
@@ -117,7 +73,10 @@ public class InitializerScript : MonoBehaviour
         if (_isSaveRepositoryPopulated) return;
         _isSaveRepositoryPopulated = true;
 
-        _saveDataRepository.Add(
+        // TODO Change this.
+        var saveDataRepository = GameManagement.SaveMetaDataRepository as InMemorySaveDataRepository;
+
+        saveDataRepository!.Add(
             new SaveData
             {
                 PlayerPosition = Vector3.zero,
@@ -126,7 +85,7 @@ public class InitializerScript : MonoBehaviour
             Guid.NewGuid(),
             DateTime.UtcNow.AddSeconds(-5));
 
-        _saveDataRepository.Add(
+        saveDataRepository.Add(
             new SaveData
             {
                 PlayerPosition = new Vector3(0, 10, 0),
@@ -135,7 +94,7 @@ public class InitializerScript : MonoBehaviour
             Guid.NewGuid(),
             DateTime.UtcNow.AddHours(-1));
 
-        _saveDataRepository.Add(
+        saveDataRepository.Add(
             new SaveData
             {
                 PlayerPosition = new Vector3(4, 0, 0),
