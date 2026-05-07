@@ -6,8 +6,7 @@ namespace Strawhenge.GameManagement.Unity.Editor
     static class GameManagementSettingsProvider
     {
         const string SettingsPath = "Project/Strawhenge/Game Management";
-        const string DefaultAssetPath = "Assets/Resources/Game Management Settings.asset";
-        const string ResourcesFolderToken = "/Resources/";
+        const string DefaultAssetPath = "Assets/Game Management Settings.asset";
 
         [SettingsProvider]
         static SettingsProvider CreateProvider()
@@ -148,7 +147,7 @@ namespace Strawhenge.GameManagement.Unity.Editor
                 return false;
             }
 
-            return assetPath.StartsWith("Assets/Resources/") || assetPath.Contains(ResourcesFolderToken);
+            return assetPath.StartsWith("Assets/Resources/") || assetPath.Contains("/Resources/");
         }
     }
 }
