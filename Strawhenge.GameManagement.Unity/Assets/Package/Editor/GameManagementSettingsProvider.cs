@@ -24,23 +24,32 @@ namespace Strawhenge.GameManagement.Unity.Editor
             var settings = GetSettingsAsset();
             if (settings == null)
             {
-                EditorGUILayout.HelpBox(
-                    "No Game Management settings asset was found. Create one inside an Assets/**/Resources folder.",
-                    MessageType.Info);
-
-                if (GUILayout.Button("Create Settings Asset"))
-                {
-                    settings = CreateSettingsAssetAtUserPath();
-                    if (settings != null)
-                    {
-                        Selection.activeObject = settings;
-                        EditorGUIUtility.PingObject(settings);
-                    }
-                }
-
+                DrawMissingSettingsUI();
                 return;
             }
 
+            DrawSettingsUI(settings);
+        }
+
+        static void DrawMissingSettingsUI()
+        {
+            EditorGUILayout.HelpBox(
+                "No Game Management settings asset was found. Create one inside an Assets/**/Resources folder.",
+                MessageType.Info);
+
+            if (GUILayout.Button("Create Settings Asset"))
+            {
+                var settings = CreateSettingsAssetAtUserPath();
+                if (settings != null)
+                {
+                    Selection.activeObject = settings;
+                    EditorGUIUtility.PingObject(settings);
+                }
+            }
+        }
+
+        static void DrawSettingsUI(GameManagementSettingsScriptableObject settings)
+        {
             var serializedObject = new SerializedObject(settings);
             serializedObject.Update();
 
@@ -71,13 +80,10 @@ namespace Strawhenge.GameManagement.Unity.Editor
 
             EditorGUILayout.Space(8f);
 
-            using (new EditorGUI.DisabledScope(settings == null))
+            if (GUILayout.Button("Select Settings Asset"))
             {
-                if (GUILayout.Button("Select Settings Asset"))
-                {
-                    Selection.activeObject = settings;
-                    EditorGUIUtility.PingObject(settings);
-                }
+                Selection.activeObject = settings;
+                EditorGUIUtility.PingObject(settings);
             }
         }
 
