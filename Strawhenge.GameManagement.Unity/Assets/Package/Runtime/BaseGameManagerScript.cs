@@ -29,7 +29,7 @@ namespace Strawhenge.GameManagement.Unity
                 logger);
 
             var saveCommandFactory = new SaveGameCommandFactory<TSaveData>(
-                null,
+                SaveDataGenerator,
                 SaveRepository);
 
             var pauseGame = new PauseGame(logger);
