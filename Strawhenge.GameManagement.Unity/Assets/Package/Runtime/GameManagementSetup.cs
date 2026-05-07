@@ -52,6 +52,7 @@ namespace Strawhenge.GameManagement.Unity
             var sceneNames = new SceneNames(mainMenuSceneName, loadingScreenSceneName, gameSceneName);
 
             var gameManagerScript = Object.Instantiate(gameManagerPrefab);
+            Object.DontDestroyOnLoad(gameManagerScript.gameObject);
             gameManagerScript.RunSetup(sceneNames);
         }
     }
