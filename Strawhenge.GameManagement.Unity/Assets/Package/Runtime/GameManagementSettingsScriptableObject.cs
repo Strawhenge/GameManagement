@@ -2,7 +2,7 @@
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class SettingsScriptableObject : ScriptableObject
+    public partial class GameManagementSettingsScriptableObject : ScriptableObject
     {
         [SerializeField] SerializedSceneName _mainMenuScene;
         [SerializeField] SerializedSceneName _loadingScreenScene;
