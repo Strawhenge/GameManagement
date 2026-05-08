@@ -7,7 +7,7 @@ namespace Strawhenge.GameManagement.Unity.Tests.Tests
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         public static void Start()
         {
-            GameManagementSetup.Run();
+            GameManagementSetup.Run("Settings");
         }
     }
 }

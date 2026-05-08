@@ -5,14 +5,9 @@ namespace Strawhenge.GameManagement.Unity
 {
     public static class GameManagementSetup
     {
-        public static void Run()
+        public static void Run(string settingsResourceName)
         {
-            var settingsFound = Resources.FindObjectsOfTypeAll<GameManagementSettingsScriptableObject>();
-
-            if (settingsFound.Length > 1)
-                Debug.LogWarning("Multiple Game Management settings found.");
-
-            var settings = settingsFound.FirstOrDefault();
+            var settings = Resources.Load<GameManagementSettingsScriptableObject>(settingsResourceName);
 
             if (settings == null)
             {
