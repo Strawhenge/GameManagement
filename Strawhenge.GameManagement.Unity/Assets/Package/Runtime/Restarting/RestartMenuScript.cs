@@ -12,12 +12,6 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] Button _mainMenuButton;
         [SerializeField] Button _quitButton;
 
-        public IGameManager GameManager { private get; set; }
-
-        public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
-
-        public RestartGame RestartGame { private get; set; }
-
         void Awake()
         {
             _loadGameMenu.Hide();
@@ -31,24 +25,24 @@ namespace Strawhenge.GameManagement.Unity
         void Start()
         {
             _restartMenuCanvas.enabled = false;
-            RestartGame.Restarting += OnRestarting;
+            GameManagement.RestartGame.Restarting += OnRestarting;
         }
 
         void OnDestroy()
         {
-            RestartGame.Restarting -= OnRestarting;
+            GameManagement.RestartGame.Restarting -= OnRestarting;
         }
 
         void OnRestarting() => _restartMenuCanvas.enabled = true;
 
         void OnRestartButtonSelected()
         {
-            var mostRecentSave = SaveMetaDataRepository.GetMostRecent();
+            var mostRecentSave = GameManagement.SaveMetaDataRepository.GetMostRecent();
 
             if (mostRecentSave.HasSome(out var save))
-                GameManager.LoadSave(save);
+                GameManagement.GameManager.LoadSave(save);
             else
-                GameManager.StartNewGame();
+                GameManagement.GameManager.StartNewGame();
         }
 
         void OnLoadGameButtonSelected()
@@ -64,7 +58,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
 
-            GameManager.LoadSave(save);
+            GameManagement.GameManager.LoadSave(save);
         }
 
         void OnBackFromLoadGameMenu()
@@ -77,12 +71,12 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnMainMenuButtonSelected()
         {
-            GameManager.MainMenu();
+            GameManagement.GameManager.MainMenu();
         }
 
         void OnQuitButtonSelected()
         {
-            GameManager.Quit();
+            GameManagement.GameManager.Quit();
         }
     }
 }

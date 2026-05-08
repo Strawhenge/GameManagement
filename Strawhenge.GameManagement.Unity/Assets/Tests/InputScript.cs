@@ -11,10 +11,6 @@ public class InputScript : MonoBehaviour
 
     Vector3 _playerDirection;
 
-    public PauseGame PauseGame { private get; set; }
-
-    internal RestartGame RestartGame { private get; set; }
-
     void Update()
     {
         _playerDirection = new Vector3(
@@ -22,14 +18,14 @@ public class InputScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (PauseGame.IsPaused)
-                PauseGame.Resume();
+            if (GameManagement.PauseGame.IsPaused)
+                GameManagement.PauseGame.Resume();
             else
-                PauseGame.Pause();
+                GameManagement.PauseGame.Pause();
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
-            RestartGame.Restart();
+            GameManagement.RestartGame.Restart();
     }
 
     void FixedUpdate()

@@ -16,7 +16,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public static RestartGame RestartGame { get; internal set; }
 
-        public static ISaveGameCommandFactory SaveCommandFactory { get; internal set; }
+        public static ISaveGameCommandFactory SaveGameCommandFactory { get; internal set; }
         
         public static ISelectedSaveDataLoader SelectedSaveDataLoader { get; internal set; }
         

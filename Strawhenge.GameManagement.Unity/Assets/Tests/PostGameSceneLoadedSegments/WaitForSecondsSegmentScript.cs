@@ -7,8 +7,6 @@ public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
 {
     bool _isCompleted;
 
-    public ICurrentSaveDataAccessor<SaveData> SaveDataAccessor { private get; set; }
-
     public override bool IsCompleted => _isCompleted;
 
     public override void Run()
@@ -18,7 +16,7 @@ public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
 
     IEnumerator Wait()
     {
-        var saveData = SaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData());
+        var saveData = GameManagement<SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData());
         var seconds = saveData.SecondsToWait;
 
         yield return new WaitForSecondsRealtime(seconds);

@@ -10,8 +10,6 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] Canvas _canvas;
         bool _inProgress;
 
-        public ISaveGameCommandFactory SaveGameCommandFactory { private get; set; }
-
         void Awake()
         {
             _canvas.enabled = false;
@@ -40,7 +38,7 @@ namespace Strawhenge.GameManagement.Unity
             Action onCompleted,
             SaveMetaData saveToOverwrite = null)
         {
-            var command = SaveGameCommandFactory.Create(saveToOverwrite);
+            var command = GameManagement.SaveGameCommandFactory.Create(saveToOverwrite);
 
             onSafeToReturnToGameplay();
 

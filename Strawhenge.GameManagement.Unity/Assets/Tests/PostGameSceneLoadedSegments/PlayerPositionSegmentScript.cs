@@ -7,8 +7,6 @@ public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
 {
     [SerializeField] Rigidbody _player;
 
-    public ICurrentSaveDataAccessor<SaveData> SaveDataAccessor { private get; set; }
-
     bool _isCompleted;
 
     public override bool IsCompleted => _isCompleted;
@@ -21,7 +19,7 @@ public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
 
     IEnumerator SetPlayerPosition()
     {
-        var saveData = SaveDataAccessor.CurrentSaveData.Reduce(()=> new SaveData());
+        var saveData = GameManagement<SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData());
         var position = saveData.PlayerPosition;
 
         _player.position = position;

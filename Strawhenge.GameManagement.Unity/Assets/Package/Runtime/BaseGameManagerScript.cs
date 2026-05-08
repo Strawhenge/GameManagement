@@ -40,7 +40,7 @@ namespace Strawhenge.GameManagement.Unity
             GameManagement.SaveMetaDataRepository = SaveRepository;
             GameManagement.PauseGame = pauseGame;
             GameManagement.RestartGame = restartGame;
-            GameManagement.SaveCommandFactory = saveCommandFactory;
+            GameManagement.SaveGameCommandFactory = saveCommandFactory;
             GameManagement.SelectedSaveDataLoader = selectedSaveDataController;
             GameManagement.SelectedSaveDataState = selectedSaveDataController;
             GameManagement<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;

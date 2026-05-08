@@ -14,10 +14,6 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] Button _mainMenuButton;
         [SerializeField] Button _quitButton;
 
-        public IGameManager GameManager { private get; set; }
-
-        public PauseGame PauseGame { private get; set; }
-
         void Awake()
         {
             _saveGameMenu.Hide();
@@ -33,14 +29,14 @@ namespace Strawhenge.GameManagement.Unity
         void Start()
         {
             _pauseMenuCanvas.enabled = false;
-            PauseGame.Paused += OnPause;
-            PauseGame.Resumed += OnResume;
+            GameManagement.PauseGame.Paused += OnPause;
+            GameManagement.PauseGame.Resumed += OnResume;
         }
 
         void OnDestroy()
         {
-            PauseGame.Paused -= OnPause;
-            PauseGame.Resumed -= OnResume;
+            GameManagement.PauseGame.Paused -= OnPause;
+            GameManagement.PauseGame.Resumed -= OnResume;
         }
 
         void OnPause() => _pauseMenuCanvas.enabled = true;
@@ -54,7 +50,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnContinueButtonSelected()
         {
-            PauseGame.Resume();
+            GameManagement.PauseGame.Resume();
         }
 
         void OnSaveGameButtonSelected()
@@ -86,8 +82,8 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
 
-            PauseGame.Resume();
-            GameManager.LoadSave(save);
+            GameManagement.PauseGame.Resume();
+            GameManagement.GameManager.LoadSave(save);
         }
 
         void OnBackFromLoadGameMenu()
@@ -100,13 +96,13 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnMainMenu()
         {
-            PauseGame.Resume();
-            GameManager.MainMenu();
+            GameManagement.PauseGame.Resume();
+            GameManagement.GameManager.MainMenu();
         }
 
         void OnQuitButtonSelected()
         {
-            GameManager.Quit();
+            GameManagement.GameManager.Quit();
         }
     }
 }

@@ -12,10 +12,6 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] Button _loadGameButton;
         [SerializeField] Button _quitButton;
 
-        public IGameManager GameManager { private get; set; }
-
-        public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
-
         void Awake()
         {
             _loadGameMenu.Hide();
@@ -27,15 +23,15 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnContinue()
         {
-            var mostRecentSave = SaveMetaDataRepository.GetMostRecent();
+            var mostRecentSave = GameManagement.SaveMetaDataRepository.GetMostRecent();
 
             mostRecentSave.Do(
-                GameManager.LoadSave);
+                GameManagement.GameManager.LoadSave);
         }
 
         void OnNewGame()
         {
-            GameManager.StartNewGame();
+            GameManagement.GameManager.StartNewGame();
         }
 
         void OnLoadGame()
@@ -58,13 +54,13 @@ namespace Strawhenge.GameManagement.Unity
         {
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
-            
-            GameManager.LoadSave(save);
+
+            GameManagement.GameManager.LoadSave(save);
         }
 
         void OnQuit()
         {
-            GameManager.Quit();
+            GameManagement.GameManager.Quit();
         }
     }
 }

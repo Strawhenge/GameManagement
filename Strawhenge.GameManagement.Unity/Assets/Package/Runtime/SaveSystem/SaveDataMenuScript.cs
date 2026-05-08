@@ -20,8 +20,6 @@ namespace Strawhenge.GameManagement.Unity
         Action _onBackSelected;
         Action _onNewSaveSelected;
 
-        public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
-
         void Awake()
         {
             _backButton.onClick.AddListener(() => _onBackSelected?.Invoke());
@@ -62,7 +60,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void PopulateSaves()
         {
-            var saves = SaveMetaDataRepository.GetAll();
+            var saves = GameManagement.SaveMetaDataRepository.GetAll();
 
             foreach (var save in saves)
             {
