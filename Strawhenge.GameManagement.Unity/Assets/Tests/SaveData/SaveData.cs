@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class SaveData
+namespace Strawhenge.GameManagement.Unity.Tests.SaveData
 {
-    public Vector3 PlayerPosition { get; set; }
+    public class SaveData
+    {
+        public Vector3 PlayerPosition { get; set; }
 
-    public int SecondsToWait { get; set; }
+        public int SecondsToWait { get; set; }
+    }
 }

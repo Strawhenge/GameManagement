@@ -1,25 +1,26 @@
-﻿using Strawhenge.GameManagement.CurrentSaveData;
-using Strawhenge.GameManagement.Unity;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
+namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 {
-    bool _isCompleted;
-
-    public override bool IsCompleted => _isCompleted;
-
-    public override void Run()
+    public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
     {
-        StartCoroutine(Wait());
-    }
+        bool _isCompleted;
 
-    IEnumerator Wait()
-    {
-        var saveData = GameManagement<SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData());
-        var seconds = saveData.SecondsToWait;
+        public override bool IsCompleted => _isCompleted;
 
-        yield return new WaitForSecondsRealtime(seconds);
-        _isCompleted = true;
+        public override void Run()
+        {
+            StartCoroutine(Wait());
+        }
+
+        IEnumerator Wait()
+        {
+            var saveData = GameManagement<SaveData.SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData.SaveData());
+            var seconds = saveData.SecondsToWait;
+
+            yield return new WaitForSecondsRealtime(seconds);
+            _isCompleted = true;
+        }
     }
 }

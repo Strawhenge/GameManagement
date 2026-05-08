@@ -1,16 +1,19 @@
 ﻿using Strawhenge.GameManagement.Saving;
 using UnityEngine;
 
-class SaveDataGenerator : ISaveDataGenerator<SaveData>
+namespace Strawhenge.GameManagement.Unity.Tests.SaveData
 {
-    public SaveData GenerateForCurrentGameState()
+    class SaveDataGenerator : ISaveDataGenerator<SaveData>
     {
-        return new SaveData
+        public SaveData GenerateForCurrentGameState()
         {
-            PlayerPosition = Player.position,
-            SecondsToWait = Random.Range(0, 5)
-        };
-    }
+            return new SaveData
+            {
+                PlayerPosition = Player.position,
+                SecondsToWait = Random.Range(0, 5)
+            };
+        }
 
-    public static Rigidbody Player { private get; set; }
+        public static Rigidbody Player { private get; set; }
+    }
 }

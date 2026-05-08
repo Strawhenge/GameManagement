@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Strawhenge.GameManagement.Unity.Tests.Tests
+namespace Strawhenge.GameManagement.Unity.Tests
 {
     public static class Startup
     {

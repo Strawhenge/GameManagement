@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Strawhenge.GameManagement.Unity.Tests
+namespace Strawhenge.GameManagement.Unity.Tests.PlayModeTests
 {
     public class StartNewGameFromMainMenu
     {

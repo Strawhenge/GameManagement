@@ -1,29 +1,31 @@
-using Strawhenge.GameManagement.CurrentSaveData;
-using Strawhenge.GameManagement.Unity;
+using Strawhenge.GameManagement.Unity.Tests.SaveData;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
+namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 {
-    [SerializeField] Rigidbody _player;
-
-    bool _isCompleted;
-
-    public override bool IsCompleted => _isCompleted;
-
-    public override void Run()
+    public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
     {
-        SaveDataGenerator.Player = _player;
-        StartCoroutine(SetPlayerPosition());
-    }
+        [SerializeField] Rigidbody _player;
 
-    IEnumerator SetPlayerPosition()
-    {
-        var saveData = GameManagement<SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData());
-        var position = saveData.PlayerPosition;
+        bool _isCompleted;
 
-        _player.position = position;
-        _isCompleted = true;
-        yield return null;
+        public override bool IsCompleted => _isCompleted;
+
+        public override void Run()
+        {
+            SaveDataGenerator.Player = _player;
+            StartCoroutine(SetPlayerPosition());
+        }
+
+        IEnumerator SetPlayerPosition()
+        {
+            var saveData = GameManagement<SaveData.SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData.SaveData());
+            var position = saveData.PlayerPosition;
+
+            _player.position = position;
+            _isCompleted = true;
+            yield return null;
+        }
     }
 }
