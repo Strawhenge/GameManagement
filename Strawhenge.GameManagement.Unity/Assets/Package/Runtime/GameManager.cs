@@ -9,12 +9,12 @@ namespace Strawhenge.GameManagement.Unity
     public class GameManager : IGameManager
     {
         readonly ISaveDataSelector _saveDataSelector;
-        readonly ISceneNames _sceneNames;
+        readonly SceneNames _sceneNames;
         readonly ILogger _logger;
 
         public GameManager(
             ISaveDataSelector saveDataSelector,
-            ISceneNames sceneNames,
+            SceneNames sceneNames,
             ILogger logger)
         {
             _saveDataSelector = saveDataSelector;

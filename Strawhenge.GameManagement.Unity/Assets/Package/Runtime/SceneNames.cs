@@ -1,6 +1,6 @@
 namespace Strawhenge.GameManagement.Unity
 {
-    public class SceneNames : ISceneNames
+    public class SceneNames
     {
         public SceneNames(string mainMenu, string loadingScreen, string game)
         {

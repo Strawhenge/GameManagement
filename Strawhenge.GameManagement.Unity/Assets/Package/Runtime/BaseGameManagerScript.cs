@@ -8,12 +8,12 @@ namespace Strawhenge.GameManagement.Unity
 {
     public abstract class BaseGameManagerScript : MonoBehaviour
     {
-        protected internal abstract void RunSetup(ISceneNames sceneNames);
+        protected internal abstract void RunSetup(SceneNames sceneNames);
     }
 
     public abstract class BaseGameManagerScript<TSaveData> : BaseGameManagerScript
     {
-        protected internal sealed override void RunSetup(ISceneNames sceneNames)
+        protected internal sealed override void RunSetup(SceneNames sceneNames)
         {
             var logger = new UnityLogger(gameObject); // TODO Add LoggerScript field.
 

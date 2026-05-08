@@ -8,7 +8,7 @@ namespace Strawhenge.GameManagement.Unity
     {
         public static IGameManager GameManager { get; internal set; }
 
-        public static ISceneNames SceneNames { get; internal set; }
+        public static SceneNames SceneNames { get; internal set; }
 
         public static ISaveMetaDataRepository SaveMetaDataRepository { get; internal set; }
 
