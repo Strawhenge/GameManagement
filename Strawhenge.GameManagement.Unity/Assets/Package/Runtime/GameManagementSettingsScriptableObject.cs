@@ -2,7 +2,8 @@
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public partial class GameManagementSettingsScriptableObject : ScriptableObject
+    [CreateAssetMenu(menuName = "Strawhenge/Game Management/Settings")]
+    public class GameManagementSettingsScriptableObject : ScriptableObject
     {
         [SerializeField] SerializedSceneName _mainMenuScene;
         [SerializeField] SerializedSceneName _loadingScreenScene;
