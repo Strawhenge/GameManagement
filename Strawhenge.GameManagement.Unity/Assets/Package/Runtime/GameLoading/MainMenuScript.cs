@@ -15,13 +15,13 @@ namespace Strawhenge.GameManagement.Unity
         void Awake()
         {
             _loadGameMenu.Hide();
-            _continueButton.onClick.AddListener(OnContinue);
-            _newGameButton.onClick.AddListener(OnNewGame);
-            _loadGameButton.onClick.AddListener(OnLoadGame);
-            _quitButton.onClick.AddListener(OnQuit);
+            _continueButton.onClick.AddListener(Continue);
+            _newGameButton.onClick.AddListener(NewGame);
+            _loadGameButton.onClick.AddListener(LoadGame);
+            _quitButton.onClick.AddListener(Quit);
         }
 
-        void OnContinue()
+        public void Continue()
         {
             var mostRecentSave = GameManagement.SaveMetaDataRepository.GetMostRecent();
 
@@ -29,17 +29,22 @@ namespace Strawhenge.GameManagement.Unity
                 GameManagement.GameManager.LoadSave);
         }
 
-        void OnNewGame()
+        public void NewGame()
         {
             GameManagement.GameManager.StartNewGame();
         }
 
-        void OnLoadGame()
+        public void LoadGame()
         {
             _canvas.enabled = false;
             _loadGameMenu.Show();
             _loadGameMenu.Back += OnBackFromLoadGameMenu;
             _loadGameMenu.Load += OnSaveSelectedFromLoadGameMenu;
+        }
+
+        public void Quit()
+        {
+            GameManagement.GameManager.Quit();
         }
 
         void OnBackFromLoadGameMenu()
@@ -56,11 +61,6 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
 
             GameManagement.GameManager.LoadSave(save);
-        }
-
-        void OnQuit()
-        {
-            GameManagement.GameManager.Quit();
         }
     }
 }
