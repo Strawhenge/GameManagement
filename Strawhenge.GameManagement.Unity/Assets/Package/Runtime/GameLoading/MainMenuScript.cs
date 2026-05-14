@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class MainMenuScript : MonoBehaviour
+    public sealed class MainMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
         [SerializeField] Canvas _canvas;
@@ -14,7 +14,6 @@ namespace Strawhenge.GameManagement.Unity
 
         void Awake()
         {
-            _loadGameMenu.Hide();
             _continueButton.onClick.AddListener(Continue);
             _newGameButton.onClick.AddListener(NewGame);
             _loadGameButton.onClick.AddListener(LoadGame);

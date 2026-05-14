@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class PostGameSceneLoadedScript : MonoBehaviour
+    public sealed class PostGameSceneLoadedScript : MonoBehaviour
     {
         [SerializeField] PostGameSceneLoadedSegmentScript[] _segments;
         [SerializeField] UnityEvent _completed;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class SaveGameMenuScript : MonoBehaviour
+    public sealed class SaveGameMenuScript : MonoBehaviour
     {
         [SerializeField] SaveDataMenuScript _saveDataMenu;
         [SerializeField] SavingScript _saving;
@@ -29,6 +29,11 @@ namespace Strawhenge.GameManagement.Unity
             _onNewSaveSelectedStrategy = () => Save();
         }
 
+        void Start()
+        {
+            Hide();
+        }
+
         public void Show()
         {
             _saveDataMenu.Show(
@@ -48,7 +53,7 @@ namespace Strawhenge.GameManagement.Unity
             _onSaveSelectedStrategy = _ => { };
             _onNewSaveSelectedStrategy = () => { };
 
-            GameManagement.SaveGame.SaveSafeToReturnToGameplay += OnSaveSaveToReturnToGameplay;
+            GameManagement.SaveGame.SaveDataGenerated += OnSaveSafeToReturnToGameplay;
             GameManagement.SaveGame.Save(saveToOverwrite);
             Saved?.Invoke();
         }
@@ -56,10 +61,10 @@ namespace Strawhenge.GameManagement.Unity
         void OnSaveSelected(SaveMetaData save) => Save(save);
 
         void OnBack() => Back?.Invoke();
-        
-        void OnSaveSaveToReturnToGameplay()
+
+        void OnSaveSafeToReturnToGameplay()
         {
-            GameManagement.SaveGame.SaveSafeToReturnToGameplay -= OnSaveSaveToReturnToGameplay;
+            GameManagement.SaveGame.SaveDataGenerated -= OnSaveSafeToReturnToGameplay;
             _onBackSelectedStrategy = OnBack;
             _onSaveSelectedStrategy = OnSaveSelected;
             _onNewSaveSelectedStrategy = () => Save();

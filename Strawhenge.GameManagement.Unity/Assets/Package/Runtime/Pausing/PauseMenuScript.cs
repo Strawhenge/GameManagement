@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class PauseMenuScript : MonoBehaviour
+    public sealed class PauseMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
         [SerializeField] SaveGameMenuScript _saveGameMenu;
@@ -16,9 +16,6 @@ namespace Strawhenge.GameManagement.Unity
 
         void Awake()
         {
-            _saveGameMenu.Hide();
-            _loadGameMenu.Hide();
-
             _continueButton.onClick.AddListener(OnContinueButtonSelected);
             _saveGameButton.onClick.AddListener(OnSaveGameButtonSelected);
             _loadGameButton.onClick.AddListener(OnLoadGameButtonSelected);

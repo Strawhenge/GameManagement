@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class RestartMenuScript : MonoBehaviour
+    public sealed class RestartMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
         [SerializeField] Canvas _restartMenuCanvas;
@@ -14,8 +14,6 @@ namespace Strawhenge.GameManagement.Unity
 
         void Awake()
         {
-            _loadGameMenu.Hide();
-
             _restartButton.onClick.AddListener(OnRestartButtonSelected);
             _loadGameButton.onClick.AddListener(OnLoadGameButtonSelected);
             _mainMenuButton.onClick.AddListener(OnMainMenuButtonSelected);

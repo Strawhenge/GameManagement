@@ -19,7 +19,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public event Action SaveStarted;
 
-        public event Action SaveSafeToReturnToGameplay; // TODO Rename this.
+        public event Action SaveDataGenerated;
 
         public event Action SaveCompleted;
 
@@ -38,7 +38,7 @@ namespace Strawhenge.GameManagement.Unity
             SaveStarted?.Invoke();
 
             var command = _commandFactory.Create(saveToOverwrite);
-            SaveSafeToReturnToGameplay?.Invoke();
+            SaveDataGenerated?.Invoke();
 
             _saving.Save(command, () =>
             {

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class LoadingScreenScript : MonoBehaviour
+    public sealed class LoadingScreenScript : MonoBehaviour
     {
         void Start()
         {

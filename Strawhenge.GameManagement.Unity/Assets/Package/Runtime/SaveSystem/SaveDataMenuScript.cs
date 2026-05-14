@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class SaveDataMenuScript : MonoBehaviour
+    public sealed class SaveDataMenuScript : MonoBehaviour
     {
         [SerializeField] string _newSaveButtonText = "New Save";
         [SerializeField] Canvas _canvas;
@@ -27,6 +27,11 @@ namespace Strawhenge.GameManagement.Unity
             _newSaveButton = AddButton(
                 _newSaveButtonText,
                 onSelect: () => _onNewSaveSelected?.Invoke());
+        }
+
+        void Start()
+        {
+            Hide();
         }
 
         public void Show(

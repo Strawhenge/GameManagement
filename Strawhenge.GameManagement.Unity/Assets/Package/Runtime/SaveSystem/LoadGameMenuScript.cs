@@ -3,12 +3,17 @@ using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class LoadGameMenuScript : MonoBehaviour
+    public sealed class LoadGameMenuScript : MonoBehaviour
     {
         [SerializeField] SaveDataMenuScript _saveDataMenu;
 
         public event Action<SaveMetaData> Load;
         public event Action Back;
+
+        void Start()
+        {
+            Hide();
+        }
 
         public void Show()
         {
