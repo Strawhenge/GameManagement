@@ -5,49 +5,19 @@ using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class SavingScript : MonoBehaviour
+    public sealed class SavingScript : MonoBehaviour
     {
-        [SerializeField] Canvas _canvas;
-        bool _inProgress;
-
-        void Awake()
+        internal void Save(ISaveGameCommand command, Action onCompleted)
         {
-            _canvas.enabled = false;
-        }
+            StartCoroutine(PerformSave());
 
-        public void Save(
-            Action onSafeToReturnToGameplay,
-            Action onCompleted,
-            SaveMetaData saveToOverwrite = null)
-        {
-            if (_inProgress)
+            IEnumerator PerformSave()
             {
-                Debug.LogError("Saving already in progress.");
-                return;
+                var task = command.SaveAsync();
+                yield return new WaitUntil(() => task.IsCompleted);
+
+                onCompleted();
             }
-
-            _inProgress = true;
-            _canvas.enabled = true;
-
-            StartCoroutine(
-                PerformSave(onSafeToReturnToGameplay, onCompleted, saveToOverwrite));
-        }
-
-        IEnumerator PerformSave(
-            Action onSafeToReturnToGameplay,
-            Action onCompleted,
-            SaveMetaData saveToOverwrite = null)
-        {
-            var command = GameManagement.SaveGameCommandFactory.Create(saveToOverwrite);
-
-            onSafeToReturnToGameplay();
-
-            var task = command.SaveAsync();
-            yield return new WaitUntil(() => task.IsCompleted);
-
-            _inProgress = false;
-            _canvas.enabled = false;
-            onCompleted();
         }
     }
 }

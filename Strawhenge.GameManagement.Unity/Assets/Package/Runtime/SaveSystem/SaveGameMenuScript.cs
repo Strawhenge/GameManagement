@@ -13,6 +13,7 @@ namespace Strawhenge.GameManagement.Unity
         Action _onNewSaveSelectedStrategy;
 
         public event Action Saved;
+
         public event Action Back;
 
         void Awake()
@@ -47,22 +48,21 @@ namespace Strawhenge.GameManagement.Unity
             _onSaveSelectedStrategy = _ => { };
             _onNewSaveSelectedStrategy = () => { };
 
-            _saving.Save(
-                onSafeToReturnToGameplay: () =>
-                {
-                    _onBackSelectedStrategy = OnBack;
-                    Saved?.Invoke();
-                },
-                onCompleted: () =>
-                {
-                    _onSaveSelectedStrategy = OnSaveSelected;
-                    _onNewSaveSelectedStrategy = () => Save();
-                },
-                saveToOverwrite);
+            GameManagement.SaveGame.SaveSafeToReturnToGameplay += OnSaveSaveToReturnToGameplay;
+            GameManagement.SaveGame.Save(saveToOverwrite);
+            Saved?.Invoke();
         }
 
         void OnSaveSelected(SaveMetaData save) => Save(save);
 
         void OnBack() => Back?.Invoke();
+        
+        void OnSaveSaveToReturnToGameplay()
+        {
+            GameManagement.SaveGame.SaveSafeToReturnToGameplay -= OnSaveSaveToReturnToGameplay;
+            _onBackSelectedStrategy = OnBack;
+            _onSaveSelectedStrategy = OnSaveSelected;
+            _onNewSaveSelectedStrategy = () => Save();
+        }
     }
 }

@@ -35,12 +35,15 @@ namespace Strawhenge.GameManagement.Unity
             var pauseGame = new PauseGame(logger);
             var restartGame = new RestartGame();
 
+            var saving = this.GetOrAddComponent<SavingScript>();
+            var saveGame = new SaveGame(saving, saveCommandFactory, logger);
+
             GameManagement.GameManager = gameManager;
             GameManagement.SceneNames = sceneNames;
             GameManagement.SaveMetaDataRepository = SaveRepository;
             GameManagement.PauseGame = pauseGame;
             GameManagement.RestartGame = restartGame;
-            GameManagement.SaveGameCommandFactory = saveCommandFactory;
+            GameManagement.SaveGame = saveGame;
             GameManagement.SelectedSaveDataLoader = selectedSaveDataController;
             GameManagement.SelectedSaveDataState = selectedSaveDataController;
             GameManagement<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
