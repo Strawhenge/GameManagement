@@ -16,11 +16,11 @@ namespace Strawhenge.GameManagement.Unity
 
         void Awake()
         {
-            _continueButton.onClick.AddListener(OnContinueButtonSelected);
-            _saveGameButton.onClick.AddListener(OnSaveGameButtonSelected);
-            _loadGameButton.onClick.AddListener(OnLoadGameButtonSelected);
-            _mainMenuButton.onClick.AddListener(OnMainMenu);
-            _quitButton.onClick.AddListener(OnQuitButtonSelected);
+            _continueButton.onClick.AddListener(Continue);
+            _saveGameButton.onClick.AddListener(SaveGame);
+            _loadGameButton.onClick.AddListener(LoadGame);
+            _mainMenuButton.onClick.AddListener(MainMenu);
+            _quitButton.onClick.AddListener(Quit);
         }
 
         void Start()
@@ -45,12 +45,12 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Hide();
         }
 
-        void OnContinueButtonSelected()
+        public void Continue()
         {
             GameManagement.PauseGame.Resume();
         }
 
-        void OnSaveGameButtonSelected()
+        public void SaveGame()
         {
             _pauseMenuCanvas.enabled = false;
             _saveGameMenu.Show();
@@ -66,7 +66,7 @@ namespace Strawhenge.GameManagement.Unity
             _pauseMenuCanvas.enabled = true;
         }
 
-        void OnLoadGameButtonSelected()
+        public void LoadGame()
         {
             _pauseMenuCanvas.enabled = false;
             _loadGameMenu.Show();
@@ -91,13 +91,13 @@ namespace Strawhenge.GameManagement.Unity
             _pauseMenuCanvas.enabled = true;
         }
 
-        void OnMainMenu()
+        public void MainMenu()
         {
             GameManagement.PauseGame.Resume();
             GameManagement.GameManager.MainMenu();
         }
 
-        void OnQuitButtonSelected()
+        public void Quit()
         {
             GameManagement.GameManager.Quit();
         }
