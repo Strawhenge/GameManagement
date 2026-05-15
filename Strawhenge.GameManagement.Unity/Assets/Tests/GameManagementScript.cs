@@ -15,9 +15,6 @@ namespace Strawhenge.GameManagement.Unity.Tests
 
         protected override ISaveRepository<SaveData.SaveData> SaveRepository => _saveRepository;
 
-        protected override ISaveDataGenerator<SaveData.SaveData> SaveDataGenerator { get; } =
-            new SaveDataGenerator();
-
         protected override ILogger Logger => _logger != null
             ? _logger.Logger
             : base.Logger;

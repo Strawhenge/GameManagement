@@ -29,6 +29,8 @@ namespace Strawhenge.GameManagement.Unity
                 yield return null;
             }
 
+            GameManagement.ClearSaveSaveGeneratorSteps.Clear();
+
             foreach (var segment in _segments)
                 segment.Run();
 

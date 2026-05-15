@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 {
-    public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript
+    public class PlayerPositionSegmentScript : PostGameSceneLoadedSegmentScript<SaveData.SaveData>
     {
         [SerializeField] Rigidbody _player;
 
@@ -14,13 +14,15 @@ namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 
         public override void Run()
         {
-            SaveDataGenerator.Player = _player;
+            AddSaveDataGeneratorStep(saveData =>
+                saveData.PlayerPosition = _player.position);
+
             StartCoroutine(SetPlayerPosition());
         }
 
         IEnumerator SetPlayerPosition()
         {
-            var saveData = GameManagement<SaveData.SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData.SaveData());
+            var saveData = CurrentSaveData.Reduce(() => new SaveData.SaveData());
             var position = saveData.PlayerPosition;
 
             _player.position = position;

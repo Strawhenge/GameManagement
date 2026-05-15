@@ -13,6 +13,7 @@ namespace Strawhenge.GameManagement.Unity
     }
 
     public abstract class BaseGameManagementScript<TSaveData> : BaseGameManagementScript
+        where TSaveData : class, new()
     {
         ILogger _logger;
 
@@ -29,8 +30,11 @@ namespace Strawhenge.GameManagement.Unity
                 sceneNames,
                 Logger);
 
+            var saveDataGeneratorSteps = new SaveDataGeneratorSteps<TSaveData>();
+            var saveDataGenerator = new SaveDataGenerator<TSaveData>(saveDataGeneratorSteps);
+
             var saveCommandFactory = new SaveGameCommandFactory<TSaveData>(
-                SaveDataGenerator,
+                saveDataGenerator,
                 SaveRepository);
 
             var pauseGame = new PauseGame(Logger);
@@ -47,12 +51,12 @@ namespace Strawhenge.GameManagement.Unity
             GameManagement.SaveGame = saveGame;
             GameManagement.SelectedSaveDataLoader = selectedSaveDataController;
             GameManagement.SelectedSaveDataState = selectedSaveDataController;
+            GameManagement.ClearSaveSaveGeneratorSteps = saveDataGeneratorSteps;
             GameManagement<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
+            GameManagement<TSaveData>.SaveDataGeneratorSteps = saveDataGeneratorSteps;
         }
 
         protected abstract ISaveRepository<TSaveData> SaveRepository { get; }
-
-        protected abstract ISaveDataGenerator<TSaveData> SaveDataGenerator { get; }
 
         protected virtual ILogger Logger => _logger ??= new UnityLogger(gameObject);
     }

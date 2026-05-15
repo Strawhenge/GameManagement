@@ -1,5 +1,6 @@
 ﻿using Strawhenge.GameManagement.CurrentSaveData;
 using Strawhenge.GameManagement.Loading;
+using Strawhenge.GameManagement.Saving;
 
 namespace Strawhenge.GameManagement.Unity
 {
@@ -23,11 +24,16 @@ namespace Strawhenge.GameManagement.Unity
 
         internal static ISelectedSaveDataState SelectedSaveDataState { get; set; }
             = NullSelectedSaveDataController.Instance;
+
+        internal static IClearSaveSaveGeneratorSteps ClearSaveSaveGeneratorSteps { get; set; } // TODO Default value.
     }
 
     public static class GameManagement<TSaveData>
     {
-        public static ICurrentSaveDataAccessor<TSaveData> CurrentSaveDataAccessor { get; internal set; }
+        internal static ICurrentSaveDataAccessor<TSaveData> CurrentSaveDataAccessor { get; set; }
             = NullCurrentSaveDataContainer<TSaveData>.Instance;
+
+        internal static SaveDataGeneratorSteps<TSaveData>
+            SaveDataGeneratorSteps { get; set; } // TODO Default value.
     }
 }

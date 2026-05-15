@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 {
-    public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript
+    public class WaitForSecondsSegmentScript : PostGameSceneLoadedSegmentScript<SaveData.SaveData>
     {
         bool _isCompleted;
 
@@ -16,7 +16,7 @@ namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 
         IEnumerator Wait()
         {
-            var saveData = GameManagement<SaveData.SaveData>.CurrentSaveDataAccessor.CurrentSaveData.Reduce(() => new SaveData.SaveData());
+            var saveData = CurrentSaveData.Reduce(() => new SaveData.SaveData());
             var seconds = saveData.SecondsToWait;
 
             yield return new WaitForSecondsRealtime(seconds);
