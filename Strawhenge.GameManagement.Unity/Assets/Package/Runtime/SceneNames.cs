@@ -2,6 +2,11 @@ namespace Strawhenge.GameManagement.Unity
 {
     public class SceneNames
     {
+        public static SceneNames Empty { get; } = new SceneNames(
+            string.Empty,
+            string.Empty,
+            string.Empty);
+
         public SceneNames(string mainMenu, string loadingScreen, string game)
         {
             MainMenu = mainMenu;

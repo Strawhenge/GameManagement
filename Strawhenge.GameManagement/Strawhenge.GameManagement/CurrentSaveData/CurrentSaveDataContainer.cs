@@ -13,7 +13,7 @@ namespace Strawhenge.GameManagement.CurrentSaveData
             CurrentSaveData = saveData;
         }
 
-        public void SetDefault()
+        public void Reset()
         {
             CurrentSaveData = Maybe.None<TSaveData>();
         }

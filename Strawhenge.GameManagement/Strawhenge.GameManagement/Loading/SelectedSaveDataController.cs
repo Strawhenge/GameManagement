@@ -36,7 +36,7 @@ namespace Strawhenge.GameManagement.Loading
         {
             if (_selectedSave == null)
             {
-                _currentSaveData.SetDefault();
+                _currentSaveData.Reset();
             }
             else
             {
