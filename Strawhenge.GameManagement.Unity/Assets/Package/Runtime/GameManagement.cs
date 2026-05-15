@@ -3,7 +3,7 @@ using Strawhenge.GameManagement.Loading;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public static class GameManagement
+    public static class GameManagement // TODO Rename so doesn't share with namespace
     {
         public static IGameManager GameManager { get; internal set; } = NullGameManager.Instance;
 
