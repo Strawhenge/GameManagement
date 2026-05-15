@@ -5,8 +5,6 @@ namespace Strawhenge.GameManagement.Unity
 {
     public static class GameManagement
     {
-        public static bool IsConfigured { get; internal set; }
-
         public static IGameManager GameManager { get; internal set; } = NullGameManager.Instance;
 
         public static SceneNames SceneNames { get; internal set; } = SceneNames.Empty;

@@ -48,7 +48,6 @@ namespace Strawhenge.GameManagement.Unity
             GameManagement.SelectedSaveDataLoader = selectedSaveDataController;
             GameManagement.SelectedSaveDataState = selectedSaveDataController;
             GameManagement<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
-            GameManagement.IsConfigured = true;
         }
 
         protected abstract ISaveRepository<TSaveData> SaveRepository { get; }
