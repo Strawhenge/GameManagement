@@ -18,4 +18,4 @@ MonoBehaviour:
     _name: Loading Screen
   _gameScene:
     _name: Game
-  _gameManagerPrefab: {fileID: 9055807662273081225, guid: f503cc1379e0a3d4e9dcb7330ad755f7, type: 3}
+  _gameManagementPrefab: {fileID: 9055807662273081225, guid: f503cc1379e0a3d4e9dcb7330ad755f7, type: 3}

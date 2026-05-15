@@ -1,18 +1,26 @@
-﻿using Strawhenge.GameManagement.Saving;
+﻿using Strawhenge.Common.Unity;
+using Strawhenge.GameManagement.Saving;
 using Strawhenge.GameManagement.Unity.Tests.SaveData;
 using System;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.GameManagement.Unity.Tests
 {
-    public class GameManagerScript : BaseGameManagerScript<SaveData.SaveData>
+    public class GameManagementScript : BaseGameManagementScript<SaveData.SaveData>
     {
+        [SerializeField] LoggerScript _logger;
+
         readonly InMemorySaveDataRepository _saveRepository = new();
 
         protected override ISaveRepository<SaveData.SaveData> SaveRepository => _saveRepository;
 
         protected override ISaveDataGenerator<SaveData.SaveData> SaveDataGenerator { get; } =
             new SaveDataGenerator();
+
+        protected override ILogger Logger => _logger != null
+            ? _logger.Logger
+            : base.Logger;
 
         void Awake()
         {

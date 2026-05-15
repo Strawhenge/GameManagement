@@ -3,20 +3,21 @@ using Strawhenge.GameManagement.CurrentSaveData;
 using Strawhenge.GameManagement.Loading;
 using Strawhenge.GameManagement.Saving;
 using UnityEngine;
+using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public abstract class BaseGameManagerScript : MonoBehaviour
+    public abstract class BaseGameManagementScript : MonoBehaviour
     {
         protected internal abstract void RunSetup(SceneNames sceneNames);
     }
 
-    public abstract class BaseGameManagerScript<TSaveData> : BaseGameManagerScript
+    public abstract class BaseGameManagementScript<TSaveData> : BaseGameManagementScript
     {
+        ILogger _logger;
+
         protected internal sealed override void RunSetup(SceneNames sceneNames)
         {
-            var logger = new UnityLogger(gameObject); // TODO Add LoggerScript field.
-
             var currentSaveDataContainer = new CurrentSaveDataContainer<TSaveData>();
 
             var selectedSaveDataController = new SelectedSaveDataController<TSaveData>(
@@ -26,17 +27,17 @@ namespace Strawhenge.GameManagement.Unity
             var gameManager = new GameManager(
                 selectedSaveDataController,
                 sceneNames,
-                logger);
+                Logger);
 
             var saveCommandFactory = new SaveGameCommandFactory<TSaveData>(
                 SaveDataGenerator,
                 SaveRepository);
 
-            var pauseGame = new PauseGame(logger);
+            var pauseGame = new PauseGame(Logger);
             var restartGame = new RestartGame();
 
             var saving = this.GetOrAddComponent<SavingScript>();
-            var saveGame = new SaveGame(saving, saveCommandFactory, logger);
+            var saveGame = new SaveGame(saving, saveCommandFactory, Logger);
 
             GameManagement.GameManager = gameManager;
             GameManagement.SceneNames = sceneNames;
@@ -53,5 +54,7 @@ namespace Strawhenge.GameManagement.Unity
         protected abstract ISaveRepository<TSaveData> SaveRepository { get; }
 
         protected abstract ISaveDataGenerator<TSaveData> SaveDataGenerator { get; }
+
+        protected virtual ILogger Logger => _logger ??= new UnityLogger(gameObject);
     }
 }

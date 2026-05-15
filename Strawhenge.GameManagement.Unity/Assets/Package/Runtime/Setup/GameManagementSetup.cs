@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity
 {
     public static class GameManagementSetup
     {
-        public static void Run(string settingsResourceName)
+        public static void Run(string settingsResourcePath)
         {
-            var settings = Resources.Load<GameManagementSettingsScriptableObject>(settingsResourceName);
+            var settings = Resources.Load<GameManagementSettingsScriptableObject>(settingsResourcePath);
 
             if (settings == null)
             {
@@ -15,7 +14,7 @@ namespace Strawhenge.GameManagement.Unity
                 return;
             }
 
-            var gameManagerPrefab = settings.GameManagerPrefab;
+            var gameManagerPrefab = settings.GameManagementPrefab;
 
             if (gameManagerPrefab == null)
             {

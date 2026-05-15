@@ -8,9 +8,9 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] SerializedSceneName _mainMenuScene;
         [SerializeField] SerializedSceneName _loadingScreenScene;
         [SerializeField] SerializedSceneName _gameScene;
-        [SerializeField] BaseGameManagerScript _gameManagerPrefab;
+        [SerializeField] BaseGameManagementScript _gameManagementPrefab;
 
-        public BaseGameManagerScript GameManagerPrefab => _gameManagerPrefab;
+        public BaseGameManagementScript GameManagementPrefab => _gameManagementPrefab;
 
         public string MainMenuSceneName => _mainMenuScene.Name;
 
