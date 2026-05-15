@@ -2,7 +2,7 @@
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class RestartGame
+    public class RestartGame : IRestartGame
     {
         public event Action Restarting;
 

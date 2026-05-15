@@ -4,7 +4,7 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class PauseGame
+    public class PauseGame : IPauseGame
     {
         readonly ILogger _logger;
 

@@ -4,7 +4,7 @@ using System;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class SaveGame
+    public class SaveGame : ISaveGame
     {
         readonly SavingScript _saving;
         readonly ISaveGameCommandFactory _commandFactory;
