@@ -18,7 +18,7 @@ namespace Strawhenge.GameManagement.Unity
             yield return new WaitForEndOfFrame();
 
             var loadGameScene = SceneManager
-                .LoadSceneAsync(GameManagement.SceneNames.Game, LoadSceneMode.Additive);
+                .LoadSceneAsync(GameManager.SceneNames.Game, LoadSceneMode.Additive);
 
             if (loadGameScene == null)
             {
@@ -29,7 +29,7 @@ namespace Strawhenge.GameManagement.Unity
             loadGameScene.completed += _ =>
             {
                 SceneManager.SetActiveScene(
-                    SceneManager.GetSceneByName(GameManagement.SceneNames.Game));
+                    SceneManager.GetSceneByName(GameManager.SceneNames.Game));
             };
         }
 
@@ -37,7 +37,7 @@ namespace Strawhenge.GameManagement.Unity
         {
             yield return new WaitForEndOfFrame();
 
-            var task = GameManagement.SelectedSaveDataLoader.LoadProgress();
+            var task = GameManager.SelectedSaveDataLoader.LoadProgress();
             yield return new WaitUntil(() => task.IsCompleted);
 
             if (task.IsFaulted)

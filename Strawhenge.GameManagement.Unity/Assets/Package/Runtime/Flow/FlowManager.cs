@@ -6,13 +6,13 @@ using ILogger = Strawhenge.Common.Logging.ILogger;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class GameManager : IGameManager
+    public class FlowManager : IFlowManager
     {
         readonly ISaveDataSelector _saveDataSelector;
         readonly SceneNames _sceneNames;
         readonly ILogger _logger;
 
-        public GameManager(
+        public FlowManager(
             ISaveDataSelector saveDataSelector,
             SceneNames sceneNames,
             ILogger logger)

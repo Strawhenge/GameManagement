@@ -15,9 +15,9 @@ namespace Strawhenge.GameManagement.Unity
         where TSaveData : class, new()
     {
         protected Maybe<TSaveData> CurrentSaveData =>
-            GameManagement<TSaveData>.CurrentSaveDataAccessor.CurrentSaveData;
+            GameManager<TSaveData>.CurrentSaveDataAccessor.CurrentSaveData;
 
         protected void AddSaveDataGeneratorStep(Action<TSaveData> step) =>
-            GameManagement<TSaveData>.SaveDataGeneratorSteps.Add(step);
+            GameManager<TSaveData>.SaveDataGeneratorSteps.Add(step);
     }
 }

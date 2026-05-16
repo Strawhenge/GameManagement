@@ -4,9 +4,9 @@ using Strawhenge.GameManagement.Saving;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public static class GameManagement // TODO Rename so doesn't share with namespace
+    public static class GameManager
     {
-        public static IGameManager GameManager { get; internal set; } = NullGameManager.Instance;
+        public static IFlowManager Flow { get; internal set; } = NullFlowManager.Instance;
 
         public static SceneNames SceneNames { get; internal set; } = SceneNames.Empty;
 
@@ -28,7 +28,7 @@ namespace Strawhenge.GameManagement.Unity
         internal static IClearSaveSaveGeneratorSteps ClearSaveSaveGeneratorSteps { get; set; } // TODO Default value.
     }
 
-    public static class GameManagement<TSaveData>
+    public static class GameManager<TSaveData>
     {
         internal static ICurrentSaveDataAccessor<TSaveData> CurrentSaveDataAccessor { get; set; }
             = NullCurrentSaveDataContainer<TSaveData>.Instance;

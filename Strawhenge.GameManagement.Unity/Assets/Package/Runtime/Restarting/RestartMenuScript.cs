@@ -23,24 +23,24 @@ namespace Strawhenge.GameManagement.Unity
         void Start()
         {
             _restartMenuCanvas.enabled = false;
-            GameManagement.RestartGame.Restarting += OnRestarting;
+            GameManager.RestartGame.Restarting += OnRestarting;
         }
 
         void OnDestroy()
         {
-            GameManagement.RestartGame.Restarting -= OnRestarting;
+            GameManager.RestartGame.Restarting -= OnRestarting;
         }
 
         void OnRestarting() => _restartMenuCanvas.enabled = true;
 
         void OnRestartButtonSelected()
         {
-            var mostRecentSave = GameManagement.SaveMetaDataRepository.GetMostRecent();
+            var mostRecentSave = GameManager.SaveMetaDataRepository.GetMostRecent();
 
             if (mostRecentSave.HasSome(out var save))
-                GameManagement.GameManager.LoadSave(save);
+                GameManager.Flow.LoadSave(save);
             else
-                GameManagement.GameManager.StartNewGame();
+                GameManager.Flow.StartNewGame();
         }
 
         void OnLoadGameButtonSelected()
@@ -56,7 +56,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
 
-            GameManagement.GameManager.LoadSave(save);
+            GameManager.Flow.LoadSave(save);
         }
 
         void OnBackFromLoadGameMenu()
@@ -69,12 +69,12 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnMainMenuButtonSelected()
         {
-            GameManagement.GameManager.MainMenu();
+            GameManager.Flow.MainMenu();
         }
 
         void OnQuitButtonSelected()
         {
-            GameManagement.GameManager.Quit();
+            GameManager.Flow.Quit();
         }
     }
 }

@@ -16,14 +16,14 @@ namespace Strawhenge.GameManagement.Unity.Tests
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (GameManagement.PauseGame.IsPaused)
-                    GameManagement.PauseGame.Resume();
+                if (GameManager.PauseGame.IsPaused)
+                    GameManager.PauseGame.Resume();
                 else
-                    GameManagement.PauseGame.Pause();
+                    GameManager.PauseGame.Pause();
             }
 
             if (Input.GetKeyDown(KeyCode.Backspace))
-                GameManagement.RestartGame.Restart();
+                GameManager.RestartGame.Restart();
         }
 
         void FixedUpdate()

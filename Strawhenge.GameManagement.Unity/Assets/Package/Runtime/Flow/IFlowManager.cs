@@ -1,6 +1,6 @@
 namespace Strawhenge.GameManagement.Unity
 {
-    public interface IGameManager
+    public interface IFlowManager
     {
         void StartNewGame();
 

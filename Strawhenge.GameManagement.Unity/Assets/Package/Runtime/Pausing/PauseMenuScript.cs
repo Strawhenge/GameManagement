@@ -26,14 +26,14 @@ namespace Strawhenge.GameManagement.Unity
         void Start()
         {
             _pauseMenuCanvas.enabled = false;
-            GameManagement.PauseGame.Paused += OnPause;
-            GameManagement.PauseGame.Resumed += OnResume;
+            GameManager.PauseGame.Paused += OnPause;
+            GameManager.PauseGame.Resumed += OnResume;
         }
 
         void OnDestroy()
         {
-            GameManagement.PauseGame.Paused -= OnPause;
-            GameManagement.PauseGame.Resumed -= OnResume;
+            GameManager.PauseGame.Paused -= OnPause;
+            GameManager.PauseGame.Resumed -= OnResume;
         }
 
         void OnPause() => _pauseMenuCanvas.enabled = true;
@@ -47,7 +47,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public void Continue()
         {
-            GameManagement.PauseGame.Resume();
+            GameManager.PauseGame.Resume();
         }
 
         public void SaveGame()
@@ -79,8 +79,8 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
 
-            GameManagement.PauseGame.Resume();
-            GameManagement.GameManager.LoadSave(save);
+            GameManager.PauseGame.Resume();
+            GameManager.Flow.LoadSave(save);
         }
 
         void OnBackFromLoadGameMenu()
@@ -93,13 +93,13 @@ namespace Strawhenge.GameManagement.Unity
 
         public void MainMenu()
         {
-            GameManagement.PauseGame.Resume();
-            GameManagement.GameManager.MainMenu();
+            GameManager.PauseGame.Resume();
+            GameManager.Flow.MainMenu();
         }
 
         public void Quit()
         {
-            GameManagement.GameManager.Quit();
+            GameManager.Flow.Quit();
         }
     }
 }

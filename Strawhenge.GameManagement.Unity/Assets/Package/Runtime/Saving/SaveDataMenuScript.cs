@@ -65,7 +65,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void PopulateSaves()
         {
-            var saves = GameManagement.SaveMetaDataRepository.GetAll();
+            var saves = GameManager.SaveMetaDataRepository.GetAll();
 
             foreach (var save in saves)
             {

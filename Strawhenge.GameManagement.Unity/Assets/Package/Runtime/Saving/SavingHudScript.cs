@@ -10,14 +10,14 @@ namespace Strawhenge.GameManagement.Unity
         void Awake()
         {
             Hide();
-            GameManagement.SaveGame.SaveStarted += Show;
-            GameManagement.SaveGame.SaveCompleted += Hide;
+            GameManager.SaveGame.SaveStarted += Show;
+            GameManager.SaveGame.SaveCompleted += Hide;
         }
 
         void OnDestroy()
         {
-            GameManagement.SaveGame.SaveStarted -= Show;
-            GameManagement.SaveGame.SaveCompleted -= Hide;
+            GameManager.SaveGame.SaveStarted -= Show;
+            GameManager.SaveGame.SaveCompleted -= Hide;
         }
 
         void Show() => _canvas.enabled = true;

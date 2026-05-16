@@ -1,10 +1,10 @@
 ﻿namespace Strawhenge.GameManagement.Unity
 {
-    class NullGameManager : IGameManager
+    class NullFlowManager : IFlowManager
     {
-        public static IGameManager Instance { get; } = new NullGameManager();
+        public static IFlowManager Instance { get; } = new NullFlowManager();
 
-        NullGameManager()
+        NullFlowManager()
         {
         }
 

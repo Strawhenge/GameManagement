@@ -25,7 +25,7 @@ namespace Strawhenge.GameManagement.Unity
                 currentSaveDataContainer,
                 SaveRepository);
 
-            var gameManager = new GameManager(
+            var gameManager = new FlowManager(
                 selectedSaveDataController,
                 sceneNames,
                 Logger);
@@ -43,17 +43,17 @@ namespace Strawhenge.GameManagement.Unity
             var saving = this.GetOrAddComponent<SavingScript>();
             var saveGame = new SaveGame(saving, saveCommandFactory, Logger);
 
-            GameManagement.GameManager = gameManager;
-            GameManagement.SceneNames = sceneNames;
-            GameManagement.SaveMetaDataRepository = SaveRepository;
-            GameManagement.PauseGame = pauseGame;
-            GameManagement.RestartGame = restartGame;
-            GameManagement.SaveGame = saveGame;
-            GameManagement.SelectedSaveDataLoader = selectedSaveDataController;
-            GameManagement.SelectedSaveDataState = selectedSaveDataController;
-            GameManagement.ClearSaveSaveGeneratorSteps = saveDataGeneratorSteps;
-            GameManagement<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
-            GameManagement<TSaveData>.SaveDataGeneratorSteps = saveDataGeneratorSteps;
+            GameManager.Flow = gameManager;
+            GameManager.SceneNames = sceneNames;
+            GameManager.SaveMetaDataRepository = SaveRepository;
+            GameManager.PauseGame = pauseGame;
+            GameManager.RestartGame = restartGame;
+            GameManager.SaveGame = saveGame;
+            GameManager.SelectedSaveDataLoader = selectedSaveDataController;
+            GameManager.SelectedSaveDataState = selectedSaveDataController;
+            GameManager.ClearSaveSaveGeneratorSteps = saveDataGeneratorSteps;
+            GameManager<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
+            GameManager<TSaveData>.SaveDataGeneratorSteps = saveDataGeneratorSteps;
         }
 
         protected abstract ISaveRepository<TSaveData> SaveRepository { get; }

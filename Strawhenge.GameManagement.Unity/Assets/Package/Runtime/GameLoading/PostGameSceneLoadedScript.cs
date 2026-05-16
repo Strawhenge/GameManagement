@@ -24,12 +24,12 @@ namespace Strawhenge.GameManagement.Unity
 
         IEnumerator Load()
         {
-            while (GameManagement.SelectedSaveDataState.IsAwaitingSelectedSaveDataLoad)
+            while (GameManager.SelectedSaveDataState.IsAwaitingSelectedSaveDataLoad)
             {
                 yield return null;
             }
 
-            GameManagement.ClearSaveSaveGeneratorSteps.Clear();
+            GameManager.ClearSaveSaveGeneratorSteps.Clear();
 
             foreach (var segment in _segments)
                 segment.Run();
@@ -39,9 +39,9 @@ namespace Strawhenge.GameManagement.Unity
                 yield return null;
             }
 
-            var loadingScreen = SceneManager.GetSceneByName(GameManagement.SceneNames.LoadingScreen);
+            var loadingScreen = SceneManager.GetSceneByName(GameManager.SceneNames.LoadingScreen);
             if (loadingScreen.isLoaded)
-                SceneManager.UnloadSceneAsync(GameManagement.SceneNames.LoadingScreen);
+                SceneManager.UnloadSceneAsync(GameManager.SceneNames.LoadingScreen);
 
             _completed.Invoke();
             Time.timeScale = 1;

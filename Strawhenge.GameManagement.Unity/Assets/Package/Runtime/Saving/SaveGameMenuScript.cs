@@ -53,8 +53,8 @@ namespace Strawhenge.GameManagement.Unity
             _onSaveSelectedStrategy = _ => { };
             _onNewSaveSelectedStrategy = () => { };
 
-            GameManagement.SaveGame.SaveDataGenerated += OnSaveSafeToReturnToGameplay;
-            GameManagement.SaveGame.Save(saveToOverwrite);
+            GameManager.SaveGame.SaveDataGenerated += OnSaveSafeToReturnToGameplay;
+            GameManager.SaveGame.Save(saveToOverwrite);
             Saved?.Invoke();
         }
 
@@ -64,7 +64,7 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnSaveSafeToReturnToGameplay()
         {
-            GameManagement.SaveGame.SaveDataGenerated -= OnSaveSafeToReturnToGameplay;
+            GameManager.SaveGame.SaveDataGenerated -= OnSaveSafeToReturnToGameplay;
             _onBackSelectedStrategy = OnBack;
             _onSaveSelectedStrategy = OnSaveSelected;
             _onNewSaveSelectedStrategy = () => Save();

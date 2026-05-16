@@ -22,15 +22,15 @@ namespace Strawhenge.GameManagement.Unity
 
         public void Continue()
         {
-            var mostRecentSave = GameManagement.SaveMetaDataRepository.GetMostRecent();
+            var mostRecentSave = GameManager.SaveMetaDataRepository.GetMostRecent();
 
             mostRecentSave.Do(
-                GameManagement.GameManager.LoadSave);
+                GameManager.Flow.LoadSave);
         }
 
         public void NewGame()
         {
-            GameManagement.GameManager.StartNewGame();
+            GameManager.Flow.StartNewGame();
         }
 
         public void LoadGame()
@@ -43,7 +43,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public void Quit()
         {
-            GameManagement.GameManager.Quit();
+            GameManager.Flow.Quit();
         }
 
         void OnBackFromLoadGameMenu()
@@ -59,7 +59,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
 
-            GameManagement.GameManager.LoadSave(save);
+            GameManager.Flow.LoadSave(save);
         }
     }
 }
