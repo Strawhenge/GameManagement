@@ -1,6 +1,6 @@
 namespace Strawhenge.GameManagement.Saving
 {
-    public interface IClearSaveSaveGeneratorSteps
+    public interface IClearSaveDataGeneratorSteps
     {
         void Clear();
     }

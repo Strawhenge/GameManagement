@@ -52,7 +52,7 @@ namespace Strawhenge.GameManagement.Unity
             GameManager.SelectedSaveDataController = selectedSaveDataController;
             GameManager.ClearSaveSaveGeneratorSteps = saveDataGeneratorSteps;
             GameManager<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
-            GameManager<TSaveData>.SaveDataGeneratorSteps = saveDataGeneratorSteps;
+            GameManager<TSaveData>.AddSaveDataGeneratorSteps = saveDataGeneratorSteps;
         }
 
         protected abstract ISaveRepository<TSaveData> SaveRepository { get; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Strawhenge.GameManagement.Saving
 {
-    public class SaveDataGeneratorSteps<TSaveData> : IClearSaveSaveGeneratorSteps
+    public class SaveDataGeneratorSteps<TSaveData> : IClearSaveDataGeneratorSteps, IAddSaveDataGeneratorStep<TSaveData>
     {
         readonly List<Action<TSaveData>> _steps = new List<Action<TSaveData>>();
 

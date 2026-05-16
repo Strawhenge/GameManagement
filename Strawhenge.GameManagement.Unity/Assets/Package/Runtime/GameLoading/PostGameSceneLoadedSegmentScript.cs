@@ -18,6 +18,6 @@ namespace Strawhenge.GameManagement.Unity
             GameManager<TSaveData>.CurrentSaveDataAccessor.CurrentSaveData;
 
         protected void AddSaveDataGeneratorStep(Action<TSaveData> step) =>
-            GameManager<TSaveData>.SaveDataGeneratorSteps.Add(step);
+            GameManager<TSaveData>.AddSaveDataGeneratorSteps.Add(step);
     }
 }

@@ -22,7 +22,8 @@ namespace Strawhenge.GameManagement.Unity
         internal static ISelectedSaveDataController SelectedSaveDataController { get; set; }
             = NullSelectedSaveDataController.Instance;
 
-        internal static IClearSaveSaveGeneratorSteps ClearSaveSaveGeneratorSteps { get; set; } // TODO Default value.
+        internal static IClearSaveDataGeneratorSteps ClearSaveSaveGeneratorSteps { get; set; }
+            = NullClearSaveDataGeneratorSteps.Instance;
     }
 
     public static class GameManager<TSaveData>
@@ -30,7 +31,7 @@ namespace Strawhenge.GameManagement.Unity
         internal static ICurrentSaveDataAccessor<TSaveData> CurrentSaveDataAccessor { get; set; }
             = NullCurrentSaveDataContainer<TSaveData>.Instance;
 
-        internal static SaveDataGeneratorSteps<TSaveData>
-            SaveDataGeneratorSteps { get; set; } // TODO Default value.
+        internal static IAddSaveDataGeneratorStep<TSaveData> AddSaveDataGeneratorSteps { get; set; }
+            = NullAddSaveDataGeneratorStep<TSaveData>.Instance;
     }
 }
