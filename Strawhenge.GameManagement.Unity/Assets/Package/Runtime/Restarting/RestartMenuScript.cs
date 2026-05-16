@@ -1,7 +1,9 @@
+using Strawhenge.GameManagement.SaveRepository;
+using Strawhenge.GameManagement.Unity.Saving;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Restarting
 {
     public sealed class RestartMenuScript : MonoBehaviour
     {

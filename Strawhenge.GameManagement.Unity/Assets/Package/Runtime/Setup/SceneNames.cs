@@ -1,4 +1,4 @@
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Setup
 {
     public class SceneNames
     {

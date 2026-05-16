@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Strawhenge.GameManagement.SaveRepository;
+using System;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Saving
 {
     class NullSaveGame : ISaveGame
     {

@@ -1,9 +1,8 @@
 using System.Collections;
-using Strawhenge.GameManagement.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.GameLoading
 {
     public sealed class LoadingScreenScript : MonoBehaviour
     {

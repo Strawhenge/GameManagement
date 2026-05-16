@@ -1,4 +1,5 @@
 ﻿using FunctionalUtilities;
+using Strawhenge.GameManagement.Unity.GameLoading;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments
 {

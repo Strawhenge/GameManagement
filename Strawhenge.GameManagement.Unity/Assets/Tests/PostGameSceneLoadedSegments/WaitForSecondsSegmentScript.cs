@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Strawhenge.GameManagement.Unity.GameLoading;
+using System.Collections;
 using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PostGameSceneLoadedSegments

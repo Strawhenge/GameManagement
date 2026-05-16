@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Strawhenge.GameManagement
+namespace Strawhenge.GameManagement.SaveRepository
 {
     public interface ISaveDataRepository<TSaveData>
     {

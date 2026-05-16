@@ -1,6 +1,9 @@
 ﻿using NUnit.Framework;
-using System.Collections;
+using Strawhenge.GameManagement.Unity.GameLoading;
+using Strawhenge.GameManagement.Unity.Pausing;
+using Strawhenge.GameManagement.Unity.Saving;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;

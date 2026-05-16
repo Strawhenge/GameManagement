@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Setup
 {
     [Serializable]
     public class SerializedSceneName

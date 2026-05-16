@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Strawhenge.GameManagement.SaveRepository;
 
 namespace Strawhenge.GameManagement.Loading
 {

@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Linq;
-using Strawhenge.GameManagement.Loading;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.GameLoading
 {
     public sealed class PostGameSceneLoadedScript : MonoBehaviour
     {

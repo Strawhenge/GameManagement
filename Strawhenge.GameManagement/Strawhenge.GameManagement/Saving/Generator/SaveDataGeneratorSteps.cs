@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Strawhenge.GameManagement.Saving
+namespace Strawhenge.GameManagement.Saving.Generator
 {
     public class SaveDataGeneratorSteps<TSaveData> : IClearSaveDataGeneratorSteps, IAddSaveDataGeneratorStep<TSaveData>
     {

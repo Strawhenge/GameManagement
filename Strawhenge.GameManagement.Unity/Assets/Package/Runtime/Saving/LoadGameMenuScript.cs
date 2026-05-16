@@ -1,7 +1,8 @@
+using Strawhenge.GameManagement.SaveRepository;
 using System;
 using UnityEngine;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Saving
 {
     public sealed class LoadGameMenuScript : MonoBehaviour
     {

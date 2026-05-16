@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.GameLoading
 {
     public abstract class PostGameSceneLoadedSegmentScript : MonoBehaviour
     {

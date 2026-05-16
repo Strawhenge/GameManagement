@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Strawhenge.GameManagement.Unity.Setup;
+using UnityEngine;
 
 namespace Strawhenge.GameManagement.Unity.Tests
 {

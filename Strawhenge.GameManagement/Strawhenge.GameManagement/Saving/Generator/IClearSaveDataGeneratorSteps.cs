@@ -1,4 +1,4 @@
-namespace Strawhenge.GameManagement.Saving
+namespace Strawhenge.GameManagement.Saving.Generator
 {
     public interface IClearSaveDataGeneratorSteps
     {

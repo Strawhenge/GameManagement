@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Pausing
 {
     public interface IPauseGame
     {

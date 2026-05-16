@@ -1,9 +1,11 @@
 ﻿using Strawhenge.GameManagement.Loading;
+using Strawhenge.GameManagement.SaveRepository;
+using Strawhenge.GameManagement.Unity.Setup;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Flow
 {
     public class FlowManager : IFlowManager
     {

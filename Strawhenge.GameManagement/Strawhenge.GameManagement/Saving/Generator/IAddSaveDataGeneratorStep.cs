@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Strawhenge.GameManagement.Saving
+namespace Strawhenge.GameManagement.Saving.Generator
 {
     public interface IAddSaveDataGeneratorStep<TSaveData>
     {

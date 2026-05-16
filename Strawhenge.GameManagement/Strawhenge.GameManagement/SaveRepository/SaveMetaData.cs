@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Strawhenge.GameManagement
+namespace Strawhenge.GameManagement.SaveRepository
 {
     public class SaveMetaData
     {

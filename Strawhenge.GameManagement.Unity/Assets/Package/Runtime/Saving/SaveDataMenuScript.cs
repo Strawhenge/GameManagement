@@ -1,9 +1,10 @@
+using Strawhenge.GameManagement.SaveRepository;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Saving
 {
     public sealed class SaveDataMenuScript : MonoBehaviour
     {

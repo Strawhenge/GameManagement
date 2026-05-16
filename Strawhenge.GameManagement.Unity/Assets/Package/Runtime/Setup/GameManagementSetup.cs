@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Setup
 {
     public static class GameManagementSetup
     {

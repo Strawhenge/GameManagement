@@ -1,4 +1,6 @@
-namespace Strawhenge.GameManagement.Unity
+using Strawhenge.GameManagement.SaveRepository;
+
+namespace Strawhenge.GameManagement.Unity.Flow
 {
     public interface IFlowManager
     {

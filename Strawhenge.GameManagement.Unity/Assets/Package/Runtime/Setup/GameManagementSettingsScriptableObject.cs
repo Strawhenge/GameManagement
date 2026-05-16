@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Setup
 {
     [CreateAssetMenu(menuName = "Strawhenge/Game Management/Settings")]
     public class GameManagementSettingsScriptableObject : ScriptableObject

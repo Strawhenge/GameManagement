@@ -1,8 +1,9 @@
 ﻿using Strawhenge.Common.Logging;
+using Strawhenge.GameManagement.SaveRepository;
 using Strawhenge.GameManagement.Saving;
 using System;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Saving
 {
     public class SaveGame : ISaveGame
     {
