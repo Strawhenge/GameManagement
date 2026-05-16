@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Strawhenge.GameManagement.Loading
 {
-    public class NullSelectedSaveDataController : ISaveDataSelector, ISelectedSaveDataLoader, ISelectedSaveDataState
+    public class NullSelectedSaveDataController : ISelectedSaveDataController
     {
         public static NullSelectedSaveDataController Instance { get; } = new NullSelectedSaveDataController();
 

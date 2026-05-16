@@ -3,7 +3,7 @@ using Strawhenge.GameManagement.CurrentSaveData;
 
 namespace Strawhenge.GameManagement.Loading
 {
-    public class SelectedSaveDataController<TSaveData> : ISaveDataSelector, ISelectedSaveDataLoader, ISelectedSaveDataState
+    public class SelectedSaveDataController<TSaveData> : ISelectedSaveDataController
     {
         readonly ICurrentSaveDataSetter<TSaveData> _currentSaveData;
         readonly ISaveDataRepository<TSaveData> _repository;

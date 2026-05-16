@@ -37,7 +37,7 @@ namespace Strawhenge.GameManagement.Unity
         {
             yield return new WaitForEndOfFrame();
 
-            var task = GameManager.SelectedSaveDataLoader.LoadProgress();
+            var task = GameManager.SelectedSaveDataController.LoadProgress();
             yield return new WaitUntil(() => task.IsCompleted);
 
             if (task.IsFaulted)

@@ -1,6 +1,5 @@
 ﻿using Strawhenge.GameManagement.Loading;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
@@ -8,12 +7,12 @@ namespace Strawhenge.GameManagement.Unity
 {
     public class FlowManager : IFlowManager
     {
-        readonly ISaveDataSelector _saveDataSelector;
+        readonly ISelectedSaveDataController _saveDataSelector;
         readonly SceneNames _sceneNames;
         readonly ILogger _logger;
 
         public FlowManager(
-            ISaveDataSelector saveDataSelector,
+            ISelectedSaveDataController saveDataSelector,
             SceneNames sceneNames,
             ILogger logger)
         {

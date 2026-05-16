@@ -49,8 +49,7 @@ namespace Strawhenge.GameManagement.Unity
             GameManager.PauseGame = pauseGame;
             GameManager.RestartGame = restartGame;
             GameManager.SaveGame = saveGame;
-            GameManager.SelectedSaveDataLoader = selectedSaveDataController;
-            GameManager.SelectedSaveDataState = selectedSaveDataController;
+            GameManager.SelectedSaveDataController = selectedSaveDataController;
             GameManager.ClearSaveSaveGeneratorSteps = saveDataGeneratorSteps;
             GameManager<TSaveData>.CurrentSaveDataAccessor = currentSaveDataContainer;
             GameManager<TSaveData>.SaveDataGeneratorSteps = saveDataGeneratorSteps;

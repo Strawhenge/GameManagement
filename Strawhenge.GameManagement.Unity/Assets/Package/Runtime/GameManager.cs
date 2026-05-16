@@ -19,10 +19,7 @@ namespace Strawhenge.GameManagement.Unity
 
         public static ISaveGame SaveGame { get; internal set; } = NullSaveGame.Instance;
 
-        internal static ISelectedSaveDataLoader SelectedSaveDataLoader { get; set; }
-            = NullSelectedSaveDataController.Instance;
-
-        internal static ISelectedSaveDataState SelectedSaveDataState { get; set; }
+        internal static ISelectedSaveDataController SelectedSaveDataController { get; set; }
             = NullSelectedSaveDataController.Instance;
 
         internal static IClearSaveSaveGeneratorSteps ClearSaveSaveGeneratorSteps { get; set; } // TODO Default value.

@@ -24,7 +24,7 @@ namespace Strawhenge.GameManagement.Unity
 
         IEnumerator Load()
         {
-            while (GameManager.SelectedSaveDataState.IsAwaitingSelectedSaveDataLoad)
+            while (GameManager.SelectedSaveDataController.IsAwaitingSelectedSaveDataLoad)
             {
                 yield return null;
             }
