@@ -1,47 +1,31 @@
 using NUnit.Framework;
 using System.Collections;
-using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PlayModeTests
 {
-    public class StartNewGameFromMainMenu
+    public class StartNewGameFromMainMenu : BasePlayModeTest
     {
-        bool _setupRan;
-        bool _loadingScreenSceneLoadCompleted;
-
-        [UnitySetUp]
-        public IEnumerator Run()
+        protected override IEnumerator Run()
         {
-            if (_setupRan) yield break;
-            _setupRan = true;
+            yield return LoadInitialScene();
 
-            SceneManager.sceneLoaded += (scene, _) =>
-            {
-                if (scene.name == "Loading Screen")
-                    _loadingScreenSceneLoadCompleted = true;
-            };
-
-            yield return SceneManager.LoadSceneAsync(0);
-
-            var mainMenu = Object.FindObjectOfType<MainMenuScript>();
+            var mainMenu = GetMainMenu();
             mainMenu.NewGame();
 
-            yield return new WaitUntil(() =>
-                _loadingScreenSceneLoadCompleted && !SceneManager.GetSceneByName("Loading Screen").isLoaded);
+            yield return WaitForLoadingScreenTransition();
         }
 
         [Test]
-        public void VerifyGameSceneLoaded()
+        public void GameSceneShouldBeLoaded()
         {
-            Assert.True(SceneManager.GetSceneByName("Game").isLoaded);
+            Assert.True(SceneManager.GetSceneByName(GameSceneName).isLoaded);
         }
 
         [Test]
-        public void VerifyGameSceneActive()
+        public void GameSceneShouldBeActive()
         {
-            Assert.True(SceneManager.GetActiveScene().name == "Game");
+            Assert.True(SceneManager.GetActiveScene().name == GameSceneName);
         }
     }
 }

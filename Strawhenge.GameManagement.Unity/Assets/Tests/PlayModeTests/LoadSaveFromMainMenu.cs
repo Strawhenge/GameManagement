@@ -5,26 +5,19 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PlayModeTests
 {
-    public class LoadSaveFromMainMenu
+    public class LoadSaveFromMainMenu : BasePlayModeTest
     {
         const int TimeOutInMilliseconds = 10_000;
 
-        bool _setupRan;
-        bool _loadingScreenSceneLoadCompleted;
         Guid _saveId;
         Vector3 _playerPosition;
 
-        [UnitySetUp]
-        public IEnumerator Run()
+        protected override IEnumerator Run()
         {
-            if (_setupRan) yield break;
-            _setupRan = true;
-
             var repository = Object.FindObjectOfType<InMemorySaveDataRepositoryScript>().Repository;
             repository.DeleteAll();
 
@@ -39,38 +32,31 @@ namespace Strawhenge.GameManagement.Unity.Tests.PlayModeTests
                 _saveId,
                 DateTime.UtcNow);
 
-            SceneManager.sceneLoaded += (scene, _) =>
-            {
-                if (scene.name == "Loading Screen")
-                    _loadingScreenSceneLoadCompleted = true;
-            };
+            yield return LoadInitialScene();
 
-            yield return SceneManager.LoadSceneAsync(0);
-
-            var mainMenu = Object.FindObjectOfType<MainMenuScript>();
+            var mainMenu = GetMainMenu();
             mainMenu.LoadGame();
 
-            var saveDataMenu = Object.FindObjectOfType<SaveDataMenuScript>();
+            var saveDataMenu = GetSaveDataMenu();
             saveDataMenu.Select(0);
 
-            yield return new WaitUntil(() =>
-                _loadingScreenSceneLoadCompleted && !SceneManager.GetSceneByName("Loading Screen").isLoaded);
+            yield return WaitForLoadingScreenTransition();
         }
 
         [Test, Timeout(TimeOutInMilliseconds)]
-        public void VerifyGameSceneLoaded()
+        public void GameSceneShouldBeLoaded()
         {
-            Assert.True(SceneManager.GetSceneByName("Game").isLoaded);
+            Assert.True(SceneManager.GetSceneByName(GameSceneName).isLoaded);
         }
 
         [Test, Timeout(TimeOutInMilliseconds)]
-        public void VerifyGameSceneActive()
+        public void GameSceneShouldBeActive()
         {
-            Assert.True(SceneManager.GetActiveScene().name == "Game");
+            Assert.True(SceneManager.GetActiveScene().name == GameSceneName);
         }
 
         [Test, Timeout(TimeOutInMilliseconds)]
-        public void VerifySaveIsLoaded()
+        public void SaveShouldBeLoaded()
         {
             Assert.True(StoreSaveDataSegmentScript.SaveData.HasSome(out var saveData));
             Assert.AreEqual(_playerPosition, saveData.PlayerPosition);

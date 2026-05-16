@@ -1,67 +1,44 @@
 ﻿using NUnit.Framework;
 using System.Collections;
-using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 
 namespace Strawhenge.GameManagement.Unity.Tests.PlayModeTests
 {
-    public class ReturnToMainMenuFromGame
+    public class ReturnToMainMenuFromGame : BasePlayModeTest
     {
         const int TimeOutInMilliseconds = 10_000;
 
-        bool _setupRan;
-        bool _loadingScreenSceneLoadCompleted;
-        bool _mainMenuSceneLoadCompleted;
-
-        [UnitySetUp]
-        public IEnumerator Run()
+        protected override IEnumerator Run()
         {
-            if (_setupRan) yield break;
-            _setupRan = true;
+            yield return LoadInitialScene();
 
-            SceneManager.sceneLoaded += (scene, _) =>
-            {
-                if (scene.name == "Loading Screen")
-                    _loadingScreenSceneLoadCompleted = true;
-            };
-
-            yield return SceneManager.LoadSceneAsync(0);
-
-            var mainMenu = Object.FindObjectOfType<MainMenuScript>();
+            var mainMenu = GetMainMenu();
             mainMenu.NewGame();
 
-            yield return new WaitUntil(() =>
-                _loadingScreenSceneLoadCompleted && !SceneManager.GetSceneByName("Loading Screen").isLoaded);
+            yield return WaitForLoadingScreenTransition();
 
-            SceneManager.sceneLoaded += (scene, _) =>
-            {
-                if (scene.name == "Main Menu")
-                    _mainMenuSceneLoadCompleted = true;
-            };
-
-            var pauseMenu = Object.FindObjectOfType<PauseMenuScript>();
+            var pauseMenu = GetPauseMenu();
             pauseMenu.MainMenu();
 
-            yield return new WaitUntil(() => _mainMenuSceneLoadCompleted);
+            yield return WaitForSceneLoad(MainMenuSceneName);
         }
 
         [Test, Timeout(TimeOutInMilliseconds)]
-        public void VerifyMainMenuSceneLoaded()
+        public void MainMenuSceneShouldBeLoaded()
         {
-            Assert.True(SceneManager.GetSceneByName("Main Menu").isLoaded);
+            Assert.True(SceneManager.GetSceneByName(MainMenuSceneName).isLoaded);
         }
 
         [Test, Timeout(TimeOutInMilliseconds)]
-        public void VerifyMainMenuSceneActive()
+        public void MainMenuSceneShouldBeActive()
         {
-            Assert.True(SceneManager.GetActiveScene().name == "Main Menu");
+            Assert.True(SceneManager.GetActiveScene().name == MainMenuSceneName);
         }
 
         [Test, Timeout(TimeOutInMilliseconds)]
-        public void VerifyGameSceneNotLoaded()
+        public void GameSceneShouldNotBeLoaded()
         {
-            Assert.False(SceneManager.GetSceneByName("Game").isLoaded);
+            Assert.False(SceneManager.GetSceneByName(GameSceneName).isLoaded);
         }
     }
 }
