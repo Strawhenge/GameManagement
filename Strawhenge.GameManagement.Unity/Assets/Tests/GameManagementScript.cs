@@ -9,11 +9,12 @@ namespace Strawhenge.GameManagement.Unity.Tests
 {
     public class GameManagementScript : BaseGameManagementScript<SaveData.SaveData>
     {
+        [SerializeField] InMemorySaveDataRepositoryScript _repository;
         [SerializeField] LoggerScript _logger;
 
-        readonly InMemorySaveDataRepository _saveRepository = new();
+        InMemorySaveDataRepository _saveRepository;
 
-        protected override ISaveRepository<SaveData.SaveData> SaveRepository => _saveRepository;
+        protected override ISaveRepository<SaveData.SaveData> SaveRepository => _saveRepository ??= CreateRepository();
 
         protected override ILogger Logger => _logger != null
             ? _logger.Logger
@@ -21,6 +22,8 @@ namespace Strawhenge.GameManagement.Unity.Tests
 
         void Awake()
         {
+            _saveRepository ??= CreateRepository();
+            
             _saveRepository!.Add(
                 new SaveData.SaveData
                 {
@@ -47,6 +50,13 @@ namespace Strawhenge.GameManagement.Unity.Tests
                 },
                 Guid.NewGuid(),
                 DateTime.UtcNow.AddDays(-2));
+        }
+        
+        InMemorySaveDataRepository CreateRepository()
+        {
+            return _repository != null
+                ? _repository.Repository
+                : new InMemorySaveDataRepository();
         }
     }
 }

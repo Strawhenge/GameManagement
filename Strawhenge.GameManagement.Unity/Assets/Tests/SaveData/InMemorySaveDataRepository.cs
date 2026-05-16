@@ -17,6 +17,10 @@ namespace Strawhenge.GameManagement.Unity.Tests.SaveData
             _saveMetaDataById.Add(id, new SaveMetaData(id, dateTimeCreated));
         }
 
+        public IReadOnlyList<(SaveMetaData, SaveData)> GetAll() => _saveMetaDataById.Values
+            .Select(metaData => (metaData, _saveDataById[metaData.Id]))
+            .ToArray();
+
         Task<SaveData> ISaveDataRepository<SaveData>.GetAsync(Guid id)
         {
             return Task.FromResult(_saveDataById[id]);
