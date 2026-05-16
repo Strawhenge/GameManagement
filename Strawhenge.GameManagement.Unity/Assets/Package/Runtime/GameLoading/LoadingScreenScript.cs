@@ -1,16 +1,11 @@
 using System.Collections;
-using Strawhenge.GameManagement.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.GameLoading
 {
-    public class LoadingScreenScript : MonoBehaviour
+    public sealed class LoadingScreenScript : MonoBehaviour
     {
-        public ISelectedSaveDataLoader SelectedSaveDataLoader { private get; set; }
-
-        public ISceneNames SceneNames { private get; set; }
-
         void Start()
         {
             StartCoroutine(LoadMainScene());
@@ -21,7 +16,9 @@ namespace Strawhenge.GameManagement.Unity
         {
             yield return new WaitForEndOfFrame();
 
-            var loadGameScene = SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Additive);
+            var loadGameScene = SceneManager
+                .LoadSceneAsync(GameManager.SceneNames.Game, LoadSceneMode.Additive);
+
             if (loadGameScene == null)
             {
                 Debug.LogError("Could not load game scene.", this);
@@ -31,7 +28,7 @@ namespace Strawhenge.GameManagement.Unity
             loadGameScene.completed += _ =>
             {
                 SceneManager.SetActiveScene(
-                    SceneManager.GetSceneByName(SceneNames.Game));
+                    SceneManager.GetSceneByName(GameManager.SceneNames.Game));
             };
         }
 
@@ -39,7 +36,7 @@ namespace Strawhenge.GameManagement.Unity
         {
             yield return new WaitForEndOfFrame();
 
-            var task = SelectedSaveDataLoader.LoadProgress();
+            var task = GameManager.SelectedSaveDataController.LoadProgress();
             yield return new WaitUntil(() => task.IsCompleted);
 
             if (task.IsFaulted)

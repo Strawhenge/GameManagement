@@ -4,6 +4,6 @@
     {
         void Set(TSaveData saveData);
 
-        void SetDefault();
+        void Reset();
     }
 }

@@ -1,9 +1,11 @@
+using Strawhenge.GameManagement.SaveRepository;
+using Strawhenge.GameManagement.Unity.Saving;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.GameLoading
 {
-    public class MainMenuScript : MonoBehaviour
+    public sealed class MainMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
         [SerializeField] Canvas _canvas;
@@ -12,38 +14,38 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] Button _loadGameButton;
         [SerializeField] Button _quitButton;
 
-        public IGameManager GameManager { private get; set; }
-
-        public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
-
         void Awake()
         {
-            _loadGameMenu.Hide();
-            _continueButton.onClick.AddListener(OnContinue);
-            _newGameButton.onClick.AddListener(OnNewGame);
-            _loadGameButton.onClick.AddListener(OnLoadGame);
-            _quitButton.onClick.AddListener(OnQuit);
+            _continueButton.onClick.AddListener(Continue);
+            _newGameButton.onClick.AddListener(NewGame);
+            _loadGameButton.onClick.AddListener(LoadGame);
+            _quitButton.onClick.AddListener(Quit);
         }
 
-        void OnContinue()
+        public void Continue()
         {
-            var mostRecentSave = SaveMetaDataRepository.GetMostRecent();
+            var mostRecentSave = GameManager.SaveMetaDataRepository.GetMostRecent();
 
             mostRecentSave.Do(
-                GameManager.LoadSave);
+                GameManager.Flow.LoadSave);
         }
 
-        void OnNewGame()
+        public void NewGame()
         {
-            GameManager.StartNewGame();
+            GameManager.Flow.StartNewGame();
         }
 
-        void OnLoadGame()
+        public void LoadGame()
         {
             _canvas.enabled = false;
             _loadGameMenu.Show();
             _loadGameMenu.Back += OnBackFromLoadGameMenu;
             _loadGameMenu.Load += OnSaveSelectedFromLoadGameMenu;
+        }
+
+        public void Quit()
+        {
+            GameManager.Flow.Quit();
         }
 
         void OnBackFromLoadGameMenu()
@@ -58,13 +60,8 @@ namespace Strawhenge.GameManagement.Unity
         {
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
-            
-            GameManager.LoadSave(save);
-        }
 
-        void OnQuit()
-        {
-            GameManager.Quit();
+            GameManager.Flow.LoadSave(save);
         }
     }
 }

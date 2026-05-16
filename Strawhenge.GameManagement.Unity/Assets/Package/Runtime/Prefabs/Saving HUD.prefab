@@ -89,7 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787473075348645861}
-  - component: {fileID: 2295723822284797888}
+  - component: {fileID: 27251705771383384}
   m_Layer: 0
   m_Name: Saving HUD
   m_TagString: Untagged
@@ -113,7 +113,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2295723822284797888
+--- !u!114 &27251705771383384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2987606275486572201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c2f09e742baa5347ab6f9f274b00575, type: 3}
+  m_Script: {fileID: 11500000, guid: 77ca399bf7de43349a34ca3d0c889c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2241063706774886962}

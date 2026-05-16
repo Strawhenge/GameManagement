@@ -1,9 +1,11 @@
+using Strawhenge.GameManagement.SaveRepository;
+using Strawhenge.GameManagement.Unity.Saving;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Restarting
 {
-    public class RestartMenuScript : MonoBehaviour
+    public sealed class RestartMenuScript : MonoBehaviour
     {
         [SerializeField] LoadGameMenuScript _loadGameMenu;
         [SerializeField] Canvas _restartMenuCanvas;
@@ -12,16 +14,8 @@ namespace Strawhenge.GameManagement.Unity
         [SerializeField] Button _mainMenuButton;
         [SerializeField] Button _quitButton;
 
-        public IGameManager GameManager { private get; set; }
-
-        public ISaveMetaDataRepository SaveMetaDataRepository { private get; set; }
-
-        public IPlayerState Player { private get; set; }
-
         void Awake()
         {
-            _loadGameMenu.Hide();
-
             _restartButton.onClick.AddListener(OnRestartButtonSelected);
             _loadGameButton.onClick.AddListener(OnLoadGameButtonSelected);
             _mainMenuButton.onClick.AddListener(OnMainMenuButtonSelected);
@@ -31,24 +25,24 @@ namespace Strawhenge.GameManagement.Unity
         void Start()
         {
             _restartMenuCanvas.enabled = false;
-            Player.Died += OnPlayerDied;
+            GameManager.RestartGame.Restarting += OnRestarting;
         }
 
         void OnDestroy()
         {
-            Player.Died -= OnPlayerDied;
+            GameManager.RestartGame.Restarting -= OnRestarting;
         }
 
-        void OnPlayerDied() => _restartMenuCanvas.enabled = true;
+        void OnRestarting() => _restartMenuCanvas.enabled = true;
 
         void OnRestartButtonSelected()
         {
-            var mostRecentSave = SaveMetaDataRepository.GetMostRecent();
+            var mostRecentSave = GameManager.SaveMetaDataRepository.GetMostRecent();
 
             if (mostRecentSave.HasSome(out var save))
-                GameManager.LoadSave(save);
+                GameManager.Flow.LoadSave(save);
             else
-                GameManager.StartNewGame();
+                GameManager.Flow.StartNewGame();
         }
 
         void OnLoadGameButtonSelected()
@@ -64,7 +58,7 @@ namespace Strawhenge.GameManagement.Unity
             _loadGameMenu.Load -= OnSaveSelectedFromLoadGameMenu;
             _loadGameMenu.Back -= OnBackFromLoadGameMenu;
 
-            GameManager.LoadSave(save);
+            GameManager.Flow.LoadSave(save);
         }
 
         void OnBackFromLoadGameMenu()
@@ -77,12 +71,12 @@ namespace Strawhenge.GameManagement.Unity
 
         void OnMainMenuButtonSelected()
         {
-            GameManager.MainMenu();
+            GameManager.Flow.MainMenu();
         }
 
         void OnQuitButtonSelected()
         {
-            GameManager.Quit();
+            GameManager.Flow.Quit();
         }
     }
 }

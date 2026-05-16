@@ -1,4 +1,6 @@
-﻿namespace Strawhenge.GameManagement.Saving
+﻿using Strawhenge.GameManagement.SaveRepository;
+
+namespace Strawhenge.GameManagement.Saving
 {
     public interface ISaveGameCommandFactory
     {

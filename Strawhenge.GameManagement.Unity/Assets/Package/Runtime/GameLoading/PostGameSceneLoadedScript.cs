@@ -1,20 +1,15 @@
 using System.Collections;
 using System.Linq;
-using Strawhenge.GameManagement.Loading;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.GameLoading
 {
-    public class PostGameSceneLoadedScript : MonoBehaviour
+    public sealed class PostGameSceneLoadedScript : MonoBehaviour
     {
         [SerializeField] PostGameSceneLoadedSegmentScript[] _segments;
         [SerializeField] UnityEvent _completed;
-
-        public ISelectedSaveDataState SaveDataState { private get; set; }
-
-        public ISceneNames SceneNames { private get; set; }
 
         void Awake()
         {
@@ -28,10 +23,12 @@ namespace Strawhenge.GameManagement.Unity
 
         IEnumerator Load()
         {
-            while (SaveDataState.IsAwaitingSelectedSaveDataLoad)
+            while (GameManager.SelectedSaveDataController.IsAwaitingSelectedSaveDataLoad)
             {
                 yield return null;
             }
+
+            GameManager.ClearSaveSaveGeneratorSteps.Clear();
 
             foreach (var segment in _segments)
                 segment.Run();
@@ -41,9 +38,9 @@ namespace Strawhenge.GameManagement.Unity
                 yield return null;
             }
 
-            var loadingScreen = SceneManager.GetSceneByName(SceneNames.LoadingScreen);
+            var loadingScreen = SceneManager.GetSceneByName(GameManager.SceneNames.LoadingScreen);
             if (loadingScreen.isLoaded)
-                SceneManager.UnloadSceneAsync(SceneNames.LoadingScreen);
+                SceneManager.UnloadSceneAsync(GameManager.SceneNames.LoadingScreen);
 
             _completed.Invoke();
             Time.timeScale = 1;

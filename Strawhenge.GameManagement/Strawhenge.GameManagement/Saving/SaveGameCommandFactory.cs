@@ -1,4 +1,7 @@
-﻿namespace Strawhenge.GameManagement.Saving
+﻿using Strawhenge.GameManagement.SaveRepository;
+using Strawhenge.GameManagement.Saving.Generator;
+
+namespace Strawhenge.GameManagement.Saving
 {
     public class SaveGameCommandFactory<TSaveData> : ISaveGameCommandFactory
     {

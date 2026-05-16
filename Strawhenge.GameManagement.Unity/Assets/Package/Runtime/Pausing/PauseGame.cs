@@ -2,7 +2,7 @@
 using UnityEngine;
 using ILogger = Strawhenge.Common.Logging.ILogger;
 
-namespace Strawhenge.GameManagement.Unity
+namespace Strawhenge.GameManagement.Unity.Pausing
 {
     public class PauseGame : IPauseGame
     {

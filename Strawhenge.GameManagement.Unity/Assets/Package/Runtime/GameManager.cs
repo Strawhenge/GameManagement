@@ -1,57 +1,43 @@
-﻿using Strawhenge.GameManagement.Loading;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using ILogger = Strawhenge.Common.Logging.ILogger;
+﻿using Strawhenge.GameManagement.CurrentSaveData;
+using Strawhenge.GameManagement.Loading;
+using Strawhenge.GameManagement.SaveRepository;
+using Strawhenge.GameManagement.Saving.Generator;
+using Strawhenge.GameManagement.Unity.Flow;
+using Strawhenge.GameManagement.Unity.Pausing;
+using Strawhenge.GameManagement.Unity.Restarting;
+using Strawhenge.GameManagement.Unity.Saving;
+using Strawhenge.GameManagement.Unity.Setup;
 
 namespace Strawhenge.GameManagement.Unity
 {
-    public class GameManager : IGameManager
+    public static class GameManager
     {
-        readonly ISaveDataSelector _saveDataSelector;
-        readonly ISceneNames _sceneNames;
-        readonly ILogger _logger;
+        public static IFlowManager Flow { get; internal set; } = NullFlowManager.Instance;
 
-        public GameManager(
-            ISaveDataSelector saveDataSelector,
-            ISceneNames sceneNames,
-            ILogger logger)
-        {
-            _saveDataSelector = saveDataSelector;
-            _sceneNames = sceneNames;
-            _logger = logger;
-        }
+        public static SceneNames SceneNames { get; internal set; } = SceneNames.Empty;
 
-        public void StartNewGame()
-        {
-            _logger.LogInformation("Starting new game.");
+        public static ISaveMetaDataRepository SaveMetaDataRepository { get; internal set; }
+            = NullSaveMetaDataRepository.Instance;
 
-            _saveDataSelector.SelectNewGame();
-            SceneManager.LoadScene(_sceneNames.LoadingScreen);
-        }
+        public static IPauseGame PauseGame { get; internal set; } = NullPauseGame.Instance;
 
-        public void LoadSave(SaveMetaData save)
-        {
-            _logger.LogInformation($"Loading save '{save.Id}'.");
+        public static IRestartGame RestartGame { get; internal set; } = NullRestartGame.Instance;
 
-            _saveDataSelector.SelectSave(save);
-            SceneManager.LoadScene(_sceneNames.LoadingScreen);
-        }
+        public static ISaveGame SaveGame { get; internal set; } = NullSaveGame.Instance;
 
-        public void MainMenu()
-        {
-            _logger.LogInformation("Returning to main menu.");
-            SceneManager.LoadScene(_sceneNames.MainMenu);
-        }
+        internal static ISelectedSaveDataController SelectedSaveDataController { get; set; }
+            = NullSelectedSaveDataController.Instance;
 
-        public void Quit()
-        {
-            _logger.LogInformation("Quitting application.");
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-            UnityEngine.Application.Quit();
-#endif
-        }
+        internal static IClearSaveDataGeneratorSteps ClearSaveSaveGeneratorSteps { get; set; }
+            = NullClearSaveDataGeneratorSteps.Instance;
+    }
+
+    public static class GameManager<TSaveData>
+    {
+        internal static ICurrentSaveDataAccessor<TSaveData> CurrentSaveDataAccessor { get; set; }
+            = NullCurrentSaveDataContainer<TSaveData>.Instance;
+
+        internal static IAddSaveDataGeneratorStep<TSaveData> AddSaveDataGeneratorSteps { get; set; }
+            = NullAddSaveDataGeneratorStep<TSaveData>.Instance;
     }
 }

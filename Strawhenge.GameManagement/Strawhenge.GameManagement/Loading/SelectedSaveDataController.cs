@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Strawhenge.GameManagement.CurrentSaveData;
+using Strawhenge.GameManagement.SaveRepository;
 
 namespace Strawhenge.GameManagement.Loading
 {
-    public class SelectedSaveDataController<TSaveData> : ISaveDataSelector, ISelectedSaveDataLoader, ISelectedSaveDataState
+    public class SelectedSaveDataController<TSaveData> : ISelectedSaveDataController
     {
         readonly ICurrentSaveDataSetter<TSaveData> _currentSaveData;
         readonly ISaveDataRepository<TSaveData> _repository;
@@ -36,7 +37,7 @@ namespace Strawhenge.GameManagement.Loading
         {
             if (_selectedSave == null)
             {
-                _currentSaveData.SetDefault();
+                _currentSaveData.Reset();
             }
             else
             {
