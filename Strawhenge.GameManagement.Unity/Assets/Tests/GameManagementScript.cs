@@ -20,38 +20,6 @@ namespace Strawhenge.GameManagement.Unity.Tests
             ? _logger.Logger
             : base.Logger;
 
-        void Awake()
-        {
-            _saveRepository ??= CreateRepository();
-            
-            _saveRepository!.Add(
-                new SaveData.SaveData
-                {
-                    PlayerPosition = Vector3.zero,
-                    SecondsToWait = 0
-                },
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddSeconds(-5));
-
-            _saveRepository.Add(
-                new SaveData.SaveData
-                {
-                    PlayerPosition = new Vector3(0, 10, 0),
-                    SecondsToWait = 3
-                },
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddHours(-1));
-
-            _saveRepository.Add(
-                new SaveData.SaveData
-                {
-                    PlayerPosition = new Vector3(4, 0, 0),
-                    SecondsToWait = 8
-                },
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddDays(-2));
-        }
-        
         InMemorySaveDataRepository CreateRepository()
         {
             return _repository != null

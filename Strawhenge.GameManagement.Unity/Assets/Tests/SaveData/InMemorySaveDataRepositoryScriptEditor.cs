@@ -22,7 +22,7 @@ namespace Strawhenge.GameManagement.Unity.Tests.SaveData
 
             EditorGUI.BeginDisabledGroup(!Application.isPlaying);
 
-            _listSaveData = EditorGUILayout.Foldout(_listSaveData, "Save Data");
+            _listSaveData = EditorGUILayout.Foldout(_listSaveData, "List");
             if (_listSaveData)
             {
                 foreach (var (saveMetaData, saveData) in _target.Repository.GetAll())

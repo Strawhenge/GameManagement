@@ -60,6 +60,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff1e2e4582d4a3abe8d846f0ec930de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saves:
+  - _dateTimeCreated: 16/05/2026 18:24:06
+    _playerPosition: {x: 0, y: 0, z: 0}
+    _secondsToWait: 0
+  - _dateTimeCreated: 16/05/2026 17:24:06
+    _playerPosition: {x: 0, y: 10, z: 0}
+    _secondsToWait: 3
+  - _dateTimeCreated: 10/05/2026 18:24:06
+    _playerPosition: {x: 4, y: 0, z: 0}
+    _secondsToWait: 8
 --- !u!114 &607324682843170545
 MonoBehaviour:
   m_ObjectHideFlags: 0
