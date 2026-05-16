@@ -62,6 +62,8 @@ namespace Strawhenge.GameManagement.Unity
 
             _selectSaveButtons.Clear();
         }
+        
+        public void Select(int index) => _selectSaveButtons[index].GetComponent<Button>().onClick.Invoke();
 
         void PopulateSaves()
         {

@@ -27,6 +27,12 @@ namespace Strawhenge.GameManagement.Unity.Tests.SaveData
             _saveDataById.Remove(id);
         }
 
+        public void DeleteAll()
+        {
+            _saveMetaDataById.Clear();
+            _saveDataById.Clear();
+        }
+
         Task<SaveData> ISaveDataRepository<SaveData>.GetAsync(Guid id)
         {
             return Task.FromResult(_saveDataById[id]);
