@@ -27,10 +27,15 @@ namespace Strawhenge.GameManagement.Unity.Tests.SaveData
             {
                 foreach (var (saveMetaData, saveData) in _target.Repository.GetAll())
                 {
-                    EditorGUILayout.LabelField($"Id: {saveMetaData.Id}");
+                    EditorGUILayout.LabelField($"Id: {saveMetaData.Id}", EditorStyles.boldLabel);
                     EditorGUILayout.LabelField($"DateTimeCreated: {saveMetaData.DateTimeCreated}");
+                    EditorGUILayout.Space();
                     EditorGUILayout.LabelField($"PlayerPosition: {saveData.PlayerPosition}");
                     EditorGUILayout.LabelField($"SecondsToWait: {saveData.SecondsToWait}");
+
+                    if (GUILayout.Button("Delete"))
+                        _target.Repository.Delete(saveMetaData.Id);
+
                     EditorGUILayout.Space();
                 }
             }

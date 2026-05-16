@@ -21,6 +21,12 @@ namespace Strawhenge.GameManagement.Unity.Tests.SaveData
             .Select(metaData => (metaData, _saveDataById[metaData.Id]))
             .ToArray();
 
+        public void Delete(Guid id)
+        {
+            _saveMetaDataById.Remove(id);
+            _saveDataById.Remove(id);
+        }
+
         Task<SaveData> ISaveDataRepository<SaveData>.GetAsync(Guid id)
         {
             return Task.FromResult(_saveDataById[id]);
